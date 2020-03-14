@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Compiler.MSIL", "..\..\neo-devpack-dotnet\src\Neo.Compiler.MSIL\Neo.Compiler.MSIL.csproj", "{34251347-E9EA-4962-8DCE-158A739456FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NEP5", "NEP5\NEP5.csproj", "{66BABFB1-8884-4083-B058-F15C218BC5F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.SmartContract.Framework", "..\..\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj", "{4C3E1B21-0AD9-479E-BA42-5041B68C6D70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APITest", "APITest\APITest.csproj", "{EB72A459-D0D6-42D5-A7A2-A778EF9DA34F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NEP5", "NEP5\NEP5.csproj", "{66BABFB1-8884-4083-B058-F15C218BC5F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.SmartContract.Framework", "..\..\..\neo_code\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj", "{6C46AF46-E306-4945-BB34-D995F07F5DDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{34251347-E9EA-4962-8DCE-158A739456FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34251347-E9EA-4962-8DCE-158A739456FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34251347-E9EA-4962-8DCE-158A739456FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34251347-E9EA-4962-8DCE-158A739456FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C3E1B21-0AD9-479E-BA42-5041B68C6D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C3E1B21-0AD9-479E-BA42-5041B68C6D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C3E1B21-0AD9-479E-BA42-5041B68C6D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C3E1B21-0AD9-479E-BA42-5041B68C6D70}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66BABFB1-8884-4083-B058-F15C218BC5F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66BABFB1-8884-4083-B058-F15C218BC5F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66BABFB1-8884-4083-B058-F15C218BC5F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66BABFB1-8884-4083-B058-F15C218BC5F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB72A459-D0D6-42D5-A7A2-A778EF9DA34F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB72A459-D0D6-42D5-A7A2-A778EF9DA34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB72A459-D0D6-42D5-A7A2-A778EF9DA34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB72A459-D0D6-42D5-A7A2-A778EF9DA34F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C46AF46-E306-4945-BB34-D995F07F5DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C46AF46-E306-4945-BB34-D995F07F5DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C46AF46-E306-4945-BB34-D995F07F5DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C46AF46-E306-4945-BB34-D995F07F5DDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
