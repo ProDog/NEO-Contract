@@ -50,8 +50,66 @@ namespace API
                 if (operation == "RunTimeTest") return RunTimeTest();
 
                 if (operation == "ContractTest") return ContractTest((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
+
+                if (operation == "HelperTest") return HelperTest();
+
+                if (operation == "JsonTest") return JsonTest();
+
+                if (operation == "NativeTest") return NativeTest((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
+
+                if (operation == "StorageTest") return StorageTest();
             }
             return false;
+        }
+
+        private static object NativeTest(byte[] from, byte[] to, BigInteger amount)
+        {
+            Native.NEO("transfer", new object[] { from, to, amount });
+
+            Native.GAS("transfer", new object[] { from, to, amount });
+
+            var res = Native.Policy("supportedStandards", new object[] { });
+            Runtime.Notify(res);
+
+            return true;
+        }
+
+        private static bool JsonTest()
+        {
+            Block block = Blockchain.GetBlock(Blockchain.GetHeight());
+            Runtime.Notify(block);
+
+            var stringBlock = Json.Serialize(block);
+            Runtime.Notify(stringBlock);
+
+            var vBlock = Json.Deserialize(stringBlock);
+            Runtime.Notify(vBlock);
+
+            Block cBlock = Json.Deserialize(stringBlock) as Block;
+            Runtime.Notify(cBlock);
+
+            return true;
+        }
+
+        private static bool HelperTest()
+        {           
+            StorageMap storage = Storage.CurrentContext.CreateMap("test");
+            storage.Put("test1", "value");
+            storage.Put("test1", "value");
+            Runtime.Notify(storage.Get("test1"));
+
+            StorageMap storage1 = Storage.CurrentContext.CreateMap(new byte[] { 0x01 });
+            BigInteger aa = (BigInteger)200;
+            storage1.Put("test1", aa);
+            Runtime.Notify(storage1.Get("test1"));
+
+            StorageMap storage2 = Storage.CurrentContext.CreateMap(0x02);
+            storage2.Put(new byte[] { 0x01 }, new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xd1, 0xd1 });
+            Runtime.Notify(storage2.Get(new byte[] { 0x01 }));
+            storage2.Delete(new byte[] { 0x01 });
+            Runtime.Notify(storage2.Get(new byte[] { 0x01 }));
+
+            return true;
         }
 
         private static bool ExecutionEngineTest()
@@ -182,6 +240,37 @@ namespace API
 
             Runtime.Notify("1111", 5, 77, ExecutionEngine.EntryScriptHash);
             Runtime.Log("end!");
+
+            return true;
+        }
+
+        private static bool StorageTest()
+        {
+            StorageMap storageMap = Storage.CurrentContext.CreateMap("test");
+
+            storageMap.Put("12313", 123);
+            storageMap.Put("12314", 123);
+
+            Storage.Put(Storage.CurrentContext, "12315", "hello");
+            Runtime.Notify(Storage.Get(Storage.CurrentContext, "12315"));
+
+            Storage.Put(Storage.CurrentContext, "12315", 2);
+            Runtime.Notify(Storage.Get(Storage.CurrentContext, "12315"));
+
+            Storage.PutEx("12318", "hello", StorageFlags.None);
+            Runtime.Notify(Storage.Get(Storage.CurrentContext, "12318"));
+
+            Storage.Put(Storage.CurrentContext, "12318", 2);
+            Runtime.Notify(Storage.Get(Storage.CurrentContext, "12318"));
+
+            //Storage.PutEx("12317", "hello", StorageFlags.Constant);
+            //Runtime.Notify(Storage.Get(Storage.CurrentContext, "12317"));
+
+            //Storage.Put(Storage.CurrentContext, "12317", 2);
+            //Runtime.Notify(Storage.Get(Storage.CurrentContext, "12317"));
+
+
+            Runtime.Notify(Storage.Find("12315"));
 
             return true;
         }
