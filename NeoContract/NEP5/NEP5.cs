@@ -205,7 +205,7 @@ namespace NEP5
             }
 
             StorageMap contract = Storage.CurrentContext.CreateMap(GetStoragePrefixContract());
-            var totalSupplyData = contract.Get("totalSupply");
+            byte[] totalSupplyData = contract.Get("totalSupply");
 
             BigInteger current_supply = 0;
             if (totalSupplyData != null && totalSupplyData.Length > 0)
