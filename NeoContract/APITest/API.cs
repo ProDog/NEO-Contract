@@ -58,6 +58,8 @@ namespace API
                 if (operation == "NativeTest") return NativeTest((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
 
                 if (operation == "StorageTest") return StorageTest();
+
+                if (operation == "StorageContextTest") return StorageContextTest();
             }
             return false;
         }
@@ -87,27 +89,6 @@ namespace API
 
             Block cBlock = Json.Deserialize(stringBlock) as Block;
             Runtime.Notify(cBlock);
-
-            return true;
-        }
-
-        private static bool HelperTest()
-        {           
-            StorageMap storage = Storage.CurrentContext.CreateMap("test");
-            storage.Put("test1", "value");
-            storage.Put("test1", "value");
-            Runtime.Notify(storage.Get("test1"));
-
-            StorageMap storage1 = Storage.CurrentContext.CreateMap(new byte[] { 0x01 });
-            BigInteger aa = (BigInteger)200;
-            storage1.Put("test1", aa);
-            Runtime.Notify(storage1.Get("test1"));
-
-            StorageMap storage2 = Storage.CurrentContext.CreateMap(0x02);
-            storage2.Put(new byte[] { 0x01 }, new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xd1, 0xd1 });
-            Runtime.Notify(storage2.Get(new byte[] { 0x01 }));
-            storage2.Delete(new byte[] { 0x01 });
-            Runtime.Notify(storage2.Get(new byte[] { 0x01 }));
 
             return true;
         }
@@ -244,6 +225,55 @@ namespace API
             return true;
         }
 
+        private static bool StorageContextTest()
+        {
+            Storage.Put(Storage.CurrentContext, "test", 11);
+            //Storage.Put(Storage.CurrentReadOnlyContext, "test", 22);
+            Runtime.Notify(Storage.Get(Storage.CurrentReadOnlyContext,"test"));
+
+            //StorageMap storage = Storage.CurrentReadOnlyContext.CreateMap("test");
+            StorageContext storageContext = Storage.CurrentContext.AsReadOnly;
+
+            Runtime.Notify(Storage.Get(storageContext, "test"));
+
+            Storage.PutEx("test", 33, StorageFlags.Constant);
+
+            Runtime.Notify(Storage.Get(storageContext, "test"));
+
+            Runtime.Notify(1);
+
+            //如果是ReadOnly 这里Put会报错
+            Storage.Put(storageContext, "test", 22);
+
+            Runtime.Notify(2);
+
+            Runtime.Notify(Storage.Get(storageContext, "test"));
+
+            return true;
+        }
+
+        private static bool HelperTest()
+        {
+            StorageMap storage = Storage.CurrentContext.CreateMap("test");
+            storage.Put("test1", "value");
+            storage.Put("test1", "value");
+            Runtime.Notify(storage.Get("test1"));
+
+            StorageMap storage1 = Storage.CurrentContext.CreateMap(new byte[] { 0x01 });
+            BigInteger aa = (BigInteger)200;
+            storage1.Put("test1", aa);
+            Runtime.Notify(storage1.Get("test1"));
+
+            StorageMap storage2 = Storage.CurrentContext.CreateMap(0x02);
+            //value 长度超过16会报错？
+            storage2.Put(new byte[] { 0x01 }, new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xd1, 0xd1 });
+            Runtime.Notify(storage2.Get(new byte[] { 0x01 }));
+            storage2.Delete(new byte[] { 0x01 });
+            Runtime.Notify(storage2.Get(new byte[] { 0x01 }));
+
+            return true;
+        }
+
         private static bool StorageTest()
         {
             StorageMap storageMap = Storage.CurrentContext.CreateMap("test");
@@ -269,9 +299,16 @@ namespace API
             //Storage.Put(Storage.CurrentContext, "12317", 2);
             //Runtime.Notify(Storage.Get(Storage.CurrentContext, "12317"));
 
-
-            //Runtime.Notify(Storage.Find("12315"));
-
+            //var findRes = Storage.Find("12315");
+            //if (findRes != null)
+            //{
+            //    Runtime.Notify(0);
+            //    Runtime.Notify(findRes.Keys);
+            //}
+            //else
+            //{
+            //    Runtime.Notify(1);
+            //}
             return true;
         }
 
