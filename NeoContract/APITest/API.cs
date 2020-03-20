@@ -64,7 +64,9 @@ namespace API
 
                 if (operation == "StorageContextTest") return StorageContextTest();
 
-                if (operation == "CryptoTest") return CryptoTest();
+                if (operation == "CryptoTest") return CryptoTest((byte[])args[0], (byte[])args[1], (byte[])args[2]);
+
+                if (operation == "MultiCryptoTest") return MultiCryptoTest((byte[])args[0], (byte[])args[1], (byte[])args[2]);
 
                 if (operation == "IteratorTest") return IteratorTest((byte[]) args[0], (byte[])args[1]);
 
@@ -168,8 +170,17 @@ namespace API
             return true;
         }       
 
-        private static bool CryptoTest()
+        private static bool CryptoTest(byte[] message, byte[] pubkey, byte[] signature)
         {
+            Runtime.Notify(Crypto.ECDsaVerify(null, pubkey, signature));
+            Runtime.Notify(Crypto.ECDsaVerify(message, pubkey, signature));
+            return true;
+        }
+
+        private static bool MultiCryptoTest(byte[] message, byte[] pubkey, byte[] signature)
+        {
+            Runtime.Notify(Crypto.ECDsaVerify(null, pubkey, signature));
+            Runtime.Notify(Crypto.ECDsaVerify(message, pubkey, signature));
             return true;
         }
 
@@ -414,7 +425,6 @@ namespace API
             //}
             return true;
         }
-
 
         private static bool HelperTest()
         {
