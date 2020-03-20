@@ -29,19 +29,16 @@ namespace NEP5
         //fa 79 76 3b 86 76 7b 42 68 72 34 9f d2 fd bc cf 16 2e e2 20 合约中此处用小端序
         private static byte[] Owner() => new byte[] { 0xfa, 0x79, 0x76, 0x3b, 0x86, 0x76, 0x7b, 0x42, 0x68, 0x72, 0x34, 0x9f, 0xd2, 0xfd, 0xbc, 0xcf, 0x16, 0x2e, 0xe2, 0x20 };
 
-        //0x20e22e16cfbcfdd29f347268427b76863b7679fa
-        //private static byte[] Owner() => new byte[] { 0x20, 0xe2, 0x2e, 0x16, 0xcf, 0xbc, 0xfd, 0xd2, 0x9f, 0x34, 0x72, 0x68, 0x42, 0x7b, 0x76, 0x86, 0x3b, 0x76, 0x79, 0xfa };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ulong TokensPerNEO() => 1;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ulong TokensPerGAS() => 1;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static byte[] NeoToken() => new byte[] { 0x9b, 0xde, 0x8f, 0x20, 0x9c, 0x88, 0xdd, 0x0e, 0x7c, 0xa3, 0xbf, 0x0a, 0xf0, 0xf4, 0x76, 0xcd, 0xd8, 0x20, 0x77, 0x89 };
+
         public static byte[] NeoToken() => new byte[] { 0x89, 0x77, 0x20, 0xd8, 0xcd, 0x76, 0xf4, 0xf0, 0x0a, 0xbf, 0xa3, 0x7c, 0x0e, 0xdd, 0x88, 0x9c, 0x20, 0x8f, 0xde, 0x9b };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static byte[] GasToken() => new byte[] { 0x8c, 0x23, 0xf1, 0x96, 0xd8, 0xa1, 0xbf, 0xd1, 0x03, 0xa9, 0xdc, 0xb1, 0xf9, 0xcc, 0xf0, 0xc6, 0x11, 0x37, 0x7d, 0x3b };
+
         public static byte[] GasToken() => new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xa1, 0xd8, 0x96, 0xf1, 0x23, 0x8c };
-        //public static byte[] GasToken() => "0x8c23f196d8a1bfd103a9dcb1f9ccf0c611377d3b".HexToBytes();
         #endregion
 
         #region Notifications
@@ -69,8 +66,6 @@ namespace NEP5
             {
                 return Runtime.CheckWitness(Owner());
             }
-
-
 
             else if (Runtime.Trigger == TriggerType.Application)
             {
@@ -148,21 +143,15 @@ namespace NEP5
         {
             var notification = (object[])state;
 
-            OnTest1(3);
-
             // Checks notification format
             if (notification.Length != 4) return 0;
-
-            OnTest1(4);
 
             // Only allow Transfer notifications
             if ((string)notification[0] != "Transfer") return 0;
 
-            OnTest1(5);
             // Check dest
             if ((byte[])notification[2] != ExecutionEngine.ExecutingScriptHash) return 0;
 
-            OnTest1(6);
             // Amount
             return (BigInteger)notification[3];
         }

@@ -21,8 +21,10 @@ namespace API
         [MethodImpl(MethodImplOptions.AggressiveInlining)]       
         public static byte[] GasToken() => new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xa1, 0xd8, 0x96, 0xf1, 0x23, 0x8c };
 
-        #region Notifications
-        #endregion
+        
+        static byte[] bytes = "9bde8f209c88dd0e7ca3bf0af0f476cdd8207789".HexToBytes();
+        static byte[] bytes1 = Neo.SmartContract.Framework.Helper.HexToBytes("0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789");
+        static byte[] script = Neo.SmartContract.Framework.Helper.ToScriptHash("NikMd2j2bgVr8HzYgoJjbnwUPyXWnzjDCM");
 
         #region Storage key prefixes
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -51,6 +53,7 @@ namespace API
 
                 if (operation == "ContractTest") return ContractTest((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
 
+                //Neo.SmartContract.Framework.Helper 类中的方法还有问题
                 if (operation == "HelperTest") return HelperTest();
 
                 if (operation == "JsonTest") return JsonTest();
@@ -60,8 +63,114 @@ namespace API
                 if (operation == "StorageTest") return StorageTest();
 
                 if (operation == "StorageContextTest") return StorageContextTest();
+
+                if (operation == "CryptoTest") return CryptoTest();
+
+                if (operation == "IteratorTest") return IteratorTest((byte[]) args[0], (byte[])args[1]);
+
+                if (operation == "EnumeratorTest") return EnumeratorTest((byte[])args[0], (byte[])args[1]);
+
             }
             return false;
+        }
+
+        private static bool EnumeratorTest(byte[] a, byte[] b)
+        {
+            int sum = 0;
+            var enumerator = Enumerator<byte>.Create(a);
+
+            while (enumerator.Next())
+            {
+                sum += enumerator.Value;
+            }
+
+            Runtime.Notify(sum);
+
+            sum = 0;
+            var enumeratorA = Enumerator<byte>.Create(a);
+            var enumeratorB = Enumerator<byte>.Create(b);
+            var enumeratorC = enumeratorA.Concat(enumeratorB);
+
+            while (enumeratorC.Next())
+            {
+                sum += enumeratorC.Value;
+            }
+            Runtime.Notify(sum);
+
+            return true;
+        }
+
+        private static bool IteratorTest(byte[] a,byte[] b)
+        {
+            int sum = 0;
+            var iterator = Iterator<byte, byte>.Create(a);
+
+            while (iterator.Next())
+            {
+                sum += iterator.Value;
+            }
+            Runtime.Notify(sum);
+
+
+            sum = 0;
+            var iteratorA = Iterator<byte, byte>.Create(a);
+            var iteratorB = Iterator<byte, byte>.Create(b);
+            var iteratorC = iteratorA.Concat(iteratorB);
+
+            while (iteratorC.Next())
+            {
+                sum += iteratorC.Key;
+                sum += iteratorC.Value;
+            }
+            Runtime.Notify(sum);
+
+            Map<byte, byte> map = new Map<byte, byte>();
+            map[2] = 12;
+            map[0] = 24;
+            map[1] = 10;
+            map[12] = 36;
+
+            Map<byte, byte> map1 = new Map<byte, byte>();
+            map1[2] = 12;
+            map1[0] = 24;
+            map1[1] = 10;
+            map1[12] = 36;
+
+            sum = 0;
+            var iteratorD = Iterator<byte, byte>.Create(map);
+            var iteratorE = Iterator<byte, byte>.Create(map1);
+            var iteratorF = iteratorD.Concat(iteratorE);
+            var enumerator = iteratorF.Keys;
+
+            while (enumerator.Next())
+            {
+                sum += enumerator.Value;
+            }
+            Runtime.Notify(sum);//30
+
+            sum = 0;
+
+            var iteratorH = Iterator<byte, byte>.Create(map);
+            var iteratorI = Iterator<byte, byte>.Create(map1);
+            var iteratorG = iteratorH.Concat(iteratorI);
+            var enumeratorV = iteratorG.Values;
+            while (enumeratorV.Next())
+            {
+                sum += enumeratorV.Value;
+            }
+            Runtime.Notify(sum);//164
+
+            //StorageMap whiteListMap = Storage.CurrentContext.CreateMap("whiteListMap");
+            //byte[] whiteListBytes = whiteListMap.Get("whiteList");
+            //if (whiteListBytes.Length > 0)
+            //    map = whiteListBytes.Deserialize() as Map<byte[], byte[]>;
+
+            return true;
+        }       
+
+        private static bool CryptoTest()
+        {
+            return true;
         }
 
         private static object NativeTest(byte[] from, byte[] to, BigInteger amount)
@@ -155,26 +264,24 @@ namespace API
 
         private static bool BlockchainTest()
         {
-            //Runtime.Notify(Blockchain.GetHeight());
-            //Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).Hash);
-            //Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).Index);
-            //Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).Version);
-            //Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).PrevHash);
-            //Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).MerkleRoot);
-            //Runtime.Notify((long)Blockchain.GetBlock(Blockchain.GetHeight()).Timestamp);
-            //Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).NextConsensus);
-            //Runtime.Notify((uint)Blockchain.GetBlock(Blockchain.GetHeight()).TransactionsCount);
+            Runtime.Notify(Blockchain.GetHeight());
+            Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).Hash);
+            Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).Index);
+            Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).Version);
+            Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).PrevHash);
+            Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).MerkleRoot);
+            Runtime.Notify((long)Blockchain.GetBlock(Blockchain.GetHeight()).Timestamp);
+            Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).NextConsensus);
+            Runtime.Notify((uint)Blockchain.GetBlock(Blockchain.GetHeight()).TransactionsCount);
 
             ////使用小端序
-            ////byte[] blockHash = new byte[] { 143, 40, 169, 28, 212, 240, 46, 255, 58, 27, 122, 170, 234, 119, 58, 158, 217, 232, 55, 120, 75, 221, 32, 58, 207, 245, 135, 22, 12, 47, 136, 243 };
             byte[] blockHash = new byte[] { 243, 136, 47, 12, 22, 135, 245, 207, 58, 32, 221, 75, 120, 55, 232, 217, 158, 58, 119, 234, 170, 122, 27, 58, 255, 46, 240, 212, 28, 169, 40, 143 };
-            //Block block = Blockchain.GetBlock(blockHash);
-            //Runtime.Notify(block);
-            //Runtime.Notify(Blockchain.GetBlock(blockHash).Hash);
 
-            //Runtime.Notify(Json.Serialize(Blockchain.GetBlock(Blockchain.GetHeight())));
-
-            //byte[] contractHash = new byte[] { 163, 220, 247, 63, 229, 148, 229, 236, 213, 39, 70, 225, 207, 171, 45, 161, 131, 135, 210, 162 };//大端
+            Block block = Blockchain.GetBlock(blockHash);
+            Runtime.Notify(block);
+            Runtime.Notify(Blockchain.GetBlock(blockHash).Hash);
+            Runtime.Notify(Json.Serialize(Blockchain.GetBlock(Blockchain.GetHeight())));
+                       
             byte[] contractHash = new byte[] { 162, 210, 135, 131, 161, 45, 171, 207, 225, 70, 39, 213, 236, 229, 148, 229, 63, 247, 220, 163 };
 
             Contract contract = Blockchain.GetContract(contractHash);
@@ -219,7 +326,6 @@ namespace API
                 Runtime.Notify(0);
             }
 
-            Runtime.Notify("1111", 5, 77, ExecutionEngine.EntryScriptHash);
             Runtime.Log("end!");
 
             return true;
@@ -227,11 +333,9 @@ namespace API
 
         private static bool StorageContextTest()
         {
-            Storage.Put(Storage.CurrentContext, "test", 11);
-            //Storage.Put(Storage.CurrentReadOnlyContext, "test", 22);
+            Storage.Put(Storage.CurrentContext, "test", 11);          
             Runtime.Notify(Storage.Get(Storage.CurrentReadOnlyContext,"test"));
 
-            //StorageMap storage = Storage.CurrentReadOnlyContext.CreateMap("test");
             StorageContext storageContext = Storage.CurrentContext.AsReadOnly;
 
             Runtime.Notify(Storage.Get(storageContext, "test"));
@@ -243,7 +347,7 @@ namespace API
             Runtime.Notify(1);
 
             //如果是ReadOnly 这里Put会报错
-            Storage.Put(storageContext, "test", 22);
+            //Storage.Put(storageContext, "test", 22);
 
             Runtime.Notify(2);
 
@@ -252,7 +356,7 @@ namespace API
             return true;
         }
 
-        private static bool HelperTest()
+        private static bool StorageTest()   
         {
             StorageMap storage = Storage.CurrentContext.CreateMap("test");
             storage.Put("test1", "value");
@@ -260,23 +364,22 @@ namespace API
             Runtime.Notify(storage.Get("test1"));
 
             StorageMap storage1 = Storage.CurrentContext.CreateMap(new byte[] { 0x01 });
-            BigInteger aa = (BigInteger)200;
+            BigInteger aa = 200;
             storage1.Put("test1", aa);
             Runtime.Notify(storage1.Get("test1"));
 
-            StorageMap storage2 = Storage.CurrentContext.CreateMap(0x02);
-            //value 长度超过16会报错？
-            storage2.Put(new byte[] { 0x01 }, new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xd1, 0xd1 });
-            Runtime.Notify(storage2.Get(new byte[] { 0x01 }));
-            storage2.Delete(new byte[] { 0x01 });
-            Runtime.Notify(storage2.Get(new byte[] { 0x01 }));
+            StorageMap storageMap = Storage.CurrentContext.CreateMap("test_map");
+            // Contract compilations report errors when byte[] length exceeds 16
+            storageMap.Put(new byte[] { 0x01 }, new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xd1, 0xd1 });
 
-            return true;
-        }
+            //contract compile error here
+            //var bytes = "9bde8f209c88dd0e7ca3bf0af0f476cdd8207789".HexToBytes();
+            //var bytes1 = Neo.SmartContract.Framework.Helper.HexToBytes("0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789");
+            //var script = Neo.SmartContract.Framework.Helper.ToScriptHash("NikMd2j2bgVr8HzYgoJjbnwUPyXWnzjDCM");
 
-        private static bool StorageTest()
-        {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap("test");
+            Runtime.Notify(storageMap.Get(new byte[] { 0x01 }));
+            storageMap.Delete(new byte[] { 0x01 });
+            Runtime.Notify(storageMap.Get(new byte[] { 0x01 }));
 
             storageMap.Put("12313", 123);
             storageMap.Put("12314", 123);
@@ -309,6 +412,40 @@ namespace API
             //{
             //    Runtime.Notify(1);
             //}
+            return true;
+        }
+
+
+        private static bool HelperTest()
+        {
+            byte[] bs = new byte[] { 216, 234, 162, 12, 34 };
+            Runtime.Notify(bs.ToBigInteger());
+
+            //sbyte[] sbs = new sbyte[] { -123, 124, -16, 127, 28 };
+            //Runtime.Notify(sbs.ToByteArray());
+            //Runtime.Notify(bs.ToSbyteArray());
+
+            //Runtime.Notify(bs.AsString());
+
+            //Runtime.Notify("gripzhang".ToByteArray());
+
+            //Runtime.Notify(5.Within(10, 5));
+            //Runtime.Notify(10.Within(5, 15));
+
+            ////Runtime.Notify(12.AsSbyte());
+            ////Runtime.Notify(12.AsByte());
+
+            //Runtime.Notify(58.ToByte());
+            //Runtime.Notify(25.ToSbyte());
+
+            //Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
+            //Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Range(0, 1));
+
+            //Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Take(1));
+            //Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Last(1));
+
+            //Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Reverse());
+
             return true;
         }
 
