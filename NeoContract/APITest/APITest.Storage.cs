@@ -64,37 +64,42 @@ namespace APITest
             return true;
         }
 
-        private static bool StorageContextTest()
+        private static bool StorageContextTest(byte[] key, byte[] value)
         {
-            Storage.Put(Storage.CurrentContext, "test", 11);
-            Runtime.Notify(Storage.Get(Storage.CurrentReadOnlyContext, "test"));
+            //Storage.Put(Storage.CurrentContext, "test", 11);
+            //Runtime.Notify(Storage.Get(Storage.CurrentReadOnlyContext, "test"));
 
-            StorageContext storageContext = Storage.CurrentContext.AsReadOnly;
+            //StorageContext storageContext = Storage.CurrentContext.AsReadOnly;
 
-            Runtime.Notify(Storage.Get(storageContext, "test"));
+            //Runtime.Notify(Storage.Get(storageContext, "test"));
 
-            Storage.PutEx("test", 33, StorageFlags.Constant);
+            //Storage.PutEx("test", 33, StorageFlags.Constant);
 
-            Runtime.Notify(Storage.Get(storageContext, "test"));
+            //Runtime.Notify(Storage.Get(storageContext, "test"));
 
-            Runtime.Notify(1);
+            //Runtime.Notify(1);
 
             //如果是ReadOnly 这里Put会报错
             //Storage.Put(storageContext, "test", 22);
 
             Runtime.Notify(2);
 
-            Runtime.Notify(Storage.Get(storageContext, "test"));
+            //Runtime.Notify(Storage.Get(storageContext, "test"));
 
-            Map<byte[], string> map = new Map<byte[], string>();
             StorageMap whiteListMap = Storage.CurrentContext.CreateMap("whiteListMap");
             byte[] whiteListBytes = whiteListMap.Get("whiteList");
-            if (whiteListBytes.Length > 0)
-                map = whiteListBytes.Deserialize() as Map<byte[], string>;
-            byte[] key = new byte[] { 0x11, 0x12 };
-            string value = "test_value";
+        
+            Map<byte[], byte[]> map = new Map<byte[], byte[]>();
+     
+            if (whiteListBytes != null && whiteListBytes.Length > 0)
+            {               
+                map = whiteListBytes.Deserialize() as Map<byte[], byte[]>;
+            }
+
             map[key] = value;
             whiteListMap.Put("whiteList", map.Serialize());
+            Runtime.Notify(map);
+            Runtime.Notify(map.Keys.Length);
 
             return true;
         }

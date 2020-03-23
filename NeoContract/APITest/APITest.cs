@@ -50,7 +50,7 @@ namespace APITest
 
                 if (operation == "storage") return StorageTest();
 
-                if (operation == "storageContext") return StorageContextTest();
+                if (operation == "storageContext") return StorageContextTest((byte[])args[0], (byte[])args[1]);
 
                 if (operation == "crypto") return CryptoTest((byte[])args[0], (byte[])args[1], (byte[])args[2]);
 

@@ -69,11 +69,6 @@ namespace APITest
             }
             Runtime.Notify(sum);//164
 
-            //StorageMap whiteListMap = Storage.CurrentContext.CreateMap("whiteListMap");
-            //byte[] whiteListBytes = whiteListMap.Get("whiteList");
-            //if (whiteListBytes.Length > 0)
-            //    map = whiteListBytes.Deserialize() as Map<byte[], byte[]>;
-
             return true;
         }
     }
