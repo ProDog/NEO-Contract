@@ -40,8 +40,7 @@ namespace APITest
                 if (operation == "runtime") return RuntimeTest((byte[])args[0]);
 
                 if (operation == "contract") return ContractTest((byte[])args[0], (byte[])args[1], (byte[])args[2], (BigInteger)args[3]);
-
-                //Neo.SmartContract.Framework.Helper some api have error
+                              
                 if (operation == "helper") return HelperTest();
 
                 if (operation == "json") return JsonTest();
@@ -54,7 +53,7 @@ namespace APITest
 
                 if (operation == "crypto") return CryptoTest((byte[])args[0], (byte[])args[1], (byte[])args[2]);
 
-                if (operation == "multiCrypto") return MultiCryptoTest((byte[])args[0], (byte[])args[1], (byte[])args[2]);
+                if (operation == "multiCrypto") return MultiCryptoTest((byte[])args[0], (byte[][])args[1], (byte[][])args[2]);
 
                 if (operation == "iterator") return IteratorTest((byte[]) args[0], (byte[])args[1]);
 

@@ -16,10 +16,10 @@ namespace APITest
             return true;
         }
 
-        private static bool MultiCryptoTest(byte[] message, byte[] pubkey, byte[] signature)
+        private static bool MultiCryptoTest(byte[] message, byte[][] pubkey, byte[][] signature)
         {
-            Runtime.Notify(Crypto.ECDsaVerify(null, pubkey, signature));
-            Runtime.Notify(Crypto.ECDsaVerify(message, pubkey, signature));
+            Runtime.Notify(Crypto.ECDsaCheckMultiSig(null, pubkey, signature));
+            Runtime.Notify(Crypto.ECDsaCheckMultiSig(message, pubkey, signature));
             return true;
         }
     }
