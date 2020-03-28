@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="dotnet E:\neo_code\neo-devpack-dotnet-nep5-template\src\Neo.Compiler.MSIL\bin\Debug\netcoreapp3.1\neon.dll -f &quot;$(TargetPath)&quot; -o" />
+    <Exec Command="dotnet D:\Work\PR-Test\neo-devpack-dotnet-add-abi-offset#219\src\Neo.Compiler.MSIL\bin\Debug\netcoreapp3.1\neon.dll -f &quot;$(TargetPath)&quot; -o" />
   </Target>
 
   <ItemGroup>

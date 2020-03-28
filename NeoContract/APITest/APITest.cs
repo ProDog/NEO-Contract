@@ -39,6 +39,8 @@ namespace APITest
 
                 if (operation == "runtime") return RuntimeTest((byte[])args[0]);
 
+                if (operation == "gasleft") return GasLeftTest();
+
                 if (operation == "contract") return ContractTest((byte[])args[0], (byte[])args[1], (byte[])args[2], (BigInteger)args[3]);
                               
                 if (operation == "helper") return HelperTest();
@@ -59,8 +61,29 @@ namespace APITest
 
                 if (operation == "enumerator") return EnumeratorTest((byte[])args[0], (byte[])args[1]);
 
+                if (operation == "assert") return TestAssert((BigInteger)args[0]);
+                if (operation == "abort") return TestAbort();
+
             }
             return false;
+        }
+
+        private static object TestAbort()
+        {
+            Runtime.Notify("test");
+            Abort();
+            Runtime.Notify(1);
+            return true;
+        }
+
+        private static object TestAssert(BigInteger bigInteger)
+        {
+            Runtime.Notify("test");
+            if (bigInteger == 1) Assert(true);
+            else Assert(false);
+
+            Runtime.Notify(1);
+            return true;
         }
     }
 }
