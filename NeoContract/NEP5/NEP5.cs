@@ -54,40 +54,40 @@ namespace NEP5
         private static byte[] GetStoragePrefixContract() => new byte[] { 0x02, 0x02 };
         #endregion
 
-        //public static object Main(string operation, object[] args)
-        //{
-        //    if (Runtime.Trigger == TriggerType.Verification)
-        //    {
-        //        return Runtime.CheckWitness(Owner());
-        //    }
+        public static object Main(string operation, object[] args)
+        {
+            if (Runtime.Trigger == TriggerType.Verification)
+            {
+                return Runtime.CheckWitness(Owner());
+            }
 
-        //    else if (Runtime.Trigger == TriggerType.Application)
-        //    {
-        //        #region NEP5 METHODS
-        //        if (operation == "name") return Name();
-        //        if (operation == "symbol") return Symbol();
-        //        if (operation == "decimals") return Decimals();
-        //        if (operation == "totalSupply") return TotalSupply();
-        //        if (operation == "balanceOf") return BalanceOf((byte[])args[0]);
-        //        if (operation == "transfer") return Transfer((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
-        //        #endregion
+            else if (Runtime.Trigger == TriggerType.Application)
+            {
+                #region NEP5 METHODS
+                if (operation == "name") return Name();
+                if (operation == "symbol") return Symbol();
+                if (operation == "decimals") return Decimals();
+                if (operation == "totalSupply") return TotalSupply();
+                if (operation == "balanceOf") return BalanceOf((byte[])args[0]);
+                if (operation == "transfer") return Transfer((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
+                #endregion
 
-        //        #region NEP10 METHODS
-        //        if (operation == "supportedStandards") return SupportedStandards();
-        //        #endregion
+                #region NEP10 METHODS
+                if (operation == "supportedStandards") return SupportedStandards();
+                #endregion
 
-        //        #region CROWDSALE METHODS
-        //        if (operation == "mint") return Mint();
-        //        #endregion
+                #region CROWDSALE METHODS
+                if (operation == "mint") return Mint();
+                #endregion
 
-        //        #region ADMIN METHODS
-        //        if (operation == "deploy") return Deploy();
-        //        if (operation == "migrate") return Migrate((byte[])args[0], (string)args[1]);
-        //        if (operation == "destroy") return Destroy();
-        //        #endregion
-        //    }
-        //    return false;
-        //}
+                #region ADMIN METHODS
+                if (operation == "deploy") return Deploy();
+                if (operation == "migrate") return Migrate((byte[])args[0], (string)args[1]);
+                if (operation == "destroy") return Destroy();
+                #endregion
+            }
+            return false;
+        }
 
         public static BigInteger TotalSupply()
         {
