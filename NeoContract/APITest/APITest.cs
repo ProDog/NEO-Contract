@@ -19,7 +19,7 @@ namespace APITest
         
         static byte[] bytes = "9bde8f209c88dd0e7ca3bf0af0f476cdd8207789".HexToBytes();
         static byte[] bytes1 = Neo.SmartContract.Framework.Helper.HexToBytes("0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789");
-        static byte[] script = Neo.SmartContract.Framework.Helper.ToScriptHash("NikMd2j2bgVr8HzYgoJjbnwUPyXWnzjDCM");               
+        static byte[] addressHash = Neo.SmartContract.Framework.Helper.ToScriptHash("NikMd2j2bgVr8HzYgoJjbnwUPyXWnzjDCM");               
 
         public static object Main(string operation, object[] args)
         {

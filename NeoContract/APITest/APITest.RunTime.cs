@@ -32,7 +32,7 @@ namespace APITest
             //}       
 
 
-            if (Runtime.CheckWitness(Owner))
+            if (Runtime.CheckWitness(addressHash))
             {
                 Runtime.Notify(1);
             }
