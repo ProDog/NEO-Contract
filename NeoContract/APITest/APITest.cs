@@ -11,7 +11,7 @@ namespace APITest
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Name() => "SDK API TEST CONTRACT";
        
-        private static byte[] Owner = new byte[] { 0xfa, 0x79, 0x76, 0x3b, 0x86, 0x76, 0x7b, 0x42, 0x68, 0x72, 0x34, 0x9f, 0xd2, 0xfd, 0xbc, 0xcf, 0x16, 0x2e, 0xe2, 0x20 };       
+        private static byte[] Owner = "NikMd2j2bgVr8HzYgoJjbnwUPyXWnzjDCM".ToScriptHash();       
    
         public static byte[] NeoToken = new byte[] { 0x89, 0x77, 0x20, 0xd8, 0xcd, 0x76, 0xf4, 0xf0, 0x0a, 0xbf, 0xa3, 0x7c, 0x0e, 0xdd, 0x88, 0x9c, 0x20, 0x8f, 0xde, 0x9b };
      
@@ -62,7 +62,10 @@ namespace APITest
                 if (operation == "enumerator") return EnumeratorTest((byte[])args[0], (byte[])args[1]);
 
                 if (operation == "assert") return TestAssert((BigInteger)args[0]);
+
                 if (operation == "abort") return TestAbort();
+
+                if (operation == "migrate") return Migrate((byte[])args[0], (string)args[1]);
 
             }
             return false;

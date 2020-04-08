@@ -154,6 +154,9 @@ namespace nep5_nep3
         {
             if (!ValidateAddress(account)) throw new FormatException("The parameter 'account' SHOULD be 20-byte addresses.");
 
+            Runtime.Log("test log");
+            Runtime.Notify(0);
+
             StorageMap balances = Storage.CurrentContext.CreateMap(StoragePrefixBalance);
             return balances.Get(account)?.ToBigInteger() ?? 0;
         }

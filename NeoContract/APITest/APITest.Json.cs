@@ -23,17 +23,6 @@ namespace APITest
             Block cBlock = Json.Deserialize(stringBlock) as Block;
             Runtime.Notify(cBlock);
 
-
-            Map<byte[], string> map = new Map<byte[], string>();
-            StorageMap whiteListMap = Storage.CurrentContext.CreateMap("whiteListMap");
-            byte[] whiteListBytes = whiteListMap.Get("whiteList");
-            if (whiteListBytes.Length > 0)
-                map = whiteListBytes.Deserialize() as Map<byte[], string>;
-            byte[] key = new byte[] { 0x11, 0x12 };
-            string value = "test_value";
-            map[key] = value;
-            whiteListMap.Put("whiteList", map.Serialize());
-
             return true;
         }
     }

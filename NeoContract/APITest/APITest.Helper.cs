@@ -1,5 +1,6 @@
 ﻿using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
+using Neo.SmartContract.Framework.Services.System;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace APITest
         private static object HelperTest()
         {
             byte[] bs = new byte[] { 216, 234, 162, 12, 34 };
-            sbyte[] sbs = new sbyte[] { -123, 124, -16, 127, 28 };
+            //sbyte[] sbs = new sbyte[] { -123, 124, -16, 127, 28 };
             //Runtime.Notify(bs.ToBigInteger());
 
             //var a = bs.AsString();
@@ -45,11 +46,12 @@ namespace APITest
             //return nb;
             //Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
 
-            Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
-            Runtime.Notify("zhang".ToByteArray().Concat("grip".ToByteArray()));
+            //Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
+            //Runtime.Notify("zhang".ToByteArray().Concat("grip".ToByteArray()));
+
             //invoke 报错
             //return (new byte[] { 0x12, 0x23, 0x32 }).Range(0, 3);
-            return (new byte[] { 0x12, 0x23, 0x32 }).Take(1);
+            //return (new byte[] { 0x12, 0x23, 0x32 }).Take(1);
             //return (new byte[] { 0x12, 0x23, 0x32 }).Last(1);
 
             //invoke正常，同步区块后 Persist 报错
@@ -60,6 +62,42 @@ namespace APITest
             //neo2 中 Reverse() 没有效果，待验证，by longfei
             //Runtime.Notify("gripzhang".ToByteArray().Reverse());
 
+
+            //byte[] bt = (new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 });
+
+            //Runtime.Notify(bt);
+
+            //return bt;
+
+
+            Map<byte[], string> map = new Map<byte[], string>();
+            StorageMap whiteListMap = Storage.CurrentContext.CreateMap("whiteListMap");
+            byte[] whiteListBytes = whiteListMap.Get("whiteList");
+
+            //whiteListBytes is null, so can't check it just using whiteListBytes.Length
+            if (whiteListBytes != null && whiteListBytes.Length > 0)
+                map = whiteListBytes.Deserialize() as Map<byte[], string>;
+            byte[] key = (ExecutionEngine.ScriptContainer as Transaction).Hash;
+            string value = "test_value";
+            map[key] = value;
+            whiteListMap.Put("whiteList", map.Serialize());
+
+            return map;
+        }
+
+        public static bool Migrate(byte[] script, string manifest)
+        {
+
+            if (!Runtime.CheckWitness(Owner))
+            {
+                return false;
+            }
+            if (script.Length == 0 || manifest.Length == 0)
+            {
+                return false;
+            }
+
+            Contract.Update(script, manifest);
             return true;
         }
     }
