@@ -15,19 +15,30 @@ namespace APITest
             sbyte[] sbs = new sbyte[] { -123, 124, -16, 127, 28 };
             Runtime.Notify(bs.ToBigInteger());
 
-            var a = bs.AsString();
-            var b = "gripzhang".ToByteArray();
-            var c = 5.Within(10, 5);
-            var d = 10.Within(5, 15);
+            //var a = bs.AsString();
+            //var b = "gripzhang".ToByteArray();
+            //var c = 5.Within(10, 5);
+            //var d = 10.Within(5, 15);
 
-            //发布合约时报错 已修复
-            var e = 120.AsSbyte();
-            var f = 120.AsByte();
-            var g = 55.ToByte();
-            var h = 125.ToSbyte();
+            ////发布合约时报错 已修复
+            //var e = 120.AsSbyte();
+            //var f = 120.AsByte();
+            //var g = 55.ToByte();
+            //var h = 125.ToSbyte();
 
             //编译就报错 已修复
             var m = (new byte[] { 0x12, 0x23, 0x32 }).Reverse();
+
+            string testStr = "test string";
+            return testStr.ToByteArray();
+            //Runtime.Notify(testStr.ToByteArray());
+            //Runtime.Notify((new sbyte[] { -123, 124, -16, 127, 28 }));
+            //Runtime.Notify((new byte[] { 123, 124, 16, 127, 28 }));
+            //Runtime.Notify(((sbyte)90).ToByteArray());
+
+            //return m;
+
+            //return "zhanggrip".ToByteArray();
 
             // return 或 Runtime.Notify(a.Concat(b)) 都会报错
             //var b1 = new byte[] { 0x12, 0x23, 0x32 };
@@ -76,7 +87,7 @@ namespace APITest
             map[key] = value;
             whiteListMap.Put("whiteList", map.Serialize());
 
-            return h;
+            //return h;
 
             //return "gripzhang".ToByteArray().Reverse();
         }
