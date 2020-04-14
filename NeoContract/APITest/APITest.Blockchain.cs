@@ -5,7 +5,7 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        private static bool BlockchainTest()
+        private static bool BlockchainTest(byte[] hash)
         {
             Runtime.Notify(Blockchain.GetHeight());
             Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).Hash);
@@ -18,31 +18,31 @@ namespace APITest
             Runtime.Notify((uint)Blockchain.GetBlock(Blockchain.GetHeight()).TransactionsCount);
 
             //use little-endian
-            byte[] blockHash = new byte[] { 243, 136, 47, 12, 22, 135, 245, 207, 58, 32, 221, 75, 120, 55, 232, 217, 158, 58, 119, 234, 170, 122, 27, 58, 255, 46, 240, 212, 28, 169, 40, 143 };
+            //byte[] blockHash = new byte[] { 221, 32, 9, 8, 77, 164, 207, 77, 104, 109, 114, 68, 218, 36, 109, 151, 224, 231, 107, 28, 89, 93, 147, 139, 38, 180, 36, 55, 220, 164, 94, 14 };
 
-            Block block = Blockchain.GetBlock(blockHash);
+            Block block = Blockchain.GetBlock(hash);
             Runtime.Notify(block);
-            Runtime.Notify(Blockchain.GetBlock(blockHash).Hash);
+            Runtime.Notify(Blockchain.GetBlock(hash)?.Hash);
             Runtime.Notify(Json.Serialize(Blockchain.GetBlock(Blockchain.GetHeight())));
 
             //use little-endian
-            byte[] contractHash = new byte[] { 162, 210, 135, 131, 161, 45, 171, 207, 225, 70, 39, 213, 236, 229, 148, 229, 63, 247, 220, 163 };
-            Contract contract = Blockchain.GetContract(contractHash);
-            Runtime.Notify(contract.IsPayable);
-            Runtime.Notify(contract.HasStorage);
-            Runtime.Notify(contract.Script);
+            //byte[] contractHash = new byte[] { 179, 43, 195, 48, 182, 136, 177, 145, 44, 64, 49, 221, 13, 238, 186, 100, 21, 109, 217, 199 };
+            Contract contract = Blockchain.GetContract(hash);
+            Runtime.Notify(contract?.IsPayable);
+            Runtime.Notify(contract?.HasStorage);
+            Runtime.Notify(contract?.Script);
 
-            Runtime.Notify(Blockchain.GetContract(contractHash).IsPayable);
-            Runtime.Notify(Blockchain.GetContract(contractHash).HasStorage);
+            Runtime.Notify(Blockchain.GetContract(hash)?.IsPayable);
+            Runtime.Notify(Blockchain.GetContract(hash)?.HasStorage);
 
             //use little-endian
-            byte[] txid = new byte[] { 197, 91, 110, 0, 95, 50, 123, 78, 96, 217, 166, 94, 143, 223, 29, 148, 157, 232, 212, 191, 161, 96, 175, 90, 69, 232, 29, 221, 46, 19, 187, 11 };
-            Runtime.Notify(Blockchain.GetTransaction(txid).Hash);
-            Runtime.Notify(Blockchain.GetTransaction(txid));
+            //byte[] txid = new byte[] { 174, 32, 38, 156, 164, 178, 143, 190, 234, 97, 150, 204, 107, 45, 190, 74, 153, 85, 146, 35, 171, 206, 125, 61, 253, 230, 22, 111, 212, 67, 170, 176 };
+            Runtime.Notify(Blockchain.GetTransaction(hash)?.Hash);
+            Runtime.Notify(Blockchain.GetTransaction(hash));
 
-            Runtime.Notify(Blockchain.GetTransactionFromBlock(blockHash, 0).Hash);
-            Runtime.Notify(Blockchain.GetTransactionFromBlock(Blockchain.GetBlock(blockHash).Index, 0).Hash);
-            Runtime.Notify(Blockchain.GetTransaction(txid));
+            Runtime.Notify(Blockchain.GetTransactionFromBlock(hash, 0)?.Hash);
+            Runtime.Notify(Blockchain.GetTransactionFromBlock(Blockchain.GetBlock(hash).Index, 0)?.Hash);
+            Runtime.Notify(Blockchain.GetTransaction(hash));
 
             return true;
         }

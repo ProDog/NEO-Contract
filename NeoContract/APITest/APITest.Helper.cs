@@ -12,30 +12,22 @@ namespace APITest
         private static object HelperTest()
         {
             byte[] bs = new byte[] { 216, 234, 162, 12, 34 };
-            //sbyte[] sbs = new sbyte[] { -123, 124, -16, 127, 28 };
-            //Runtime.Notify(bs.ToBigInteger());
+            sbyte[] sbs = new sbyte[] { -123, 124, -16, 127, 28 };
+            Runtime.Notify(bs.ToBigInteger());
 
-            //var a = bs.AsString();
-            //var b = "gripzhang".ToByteArray();
-            //var c = 5.Within(10, 5);
-            //var d = 10.Within(5, 15);
+            var a = bs.AsString();
+            var b = "gripzhang".ToByteArray();
+            var c = 5.Within(10, 5);
+            var d = 10.Within(5, 15);
 
-            //发布合约时报错
-            //var e = 12.AsSbyte();
-            //var f = 12.AsByte();
-            //var g = 58.ToByte();
-            //var h = 25.ToSbyte();            
+            //发布合约时报错 已修复
+            var e = 120.AsSbyte();
+            var f = 120.AsByte();
+            var g = 55.ToByte();
+            var h = 125.ToSbyte();
 
-            //编译就报错
-            //var m = (new byte[] { 0x12, 0x23, 0x32 }).Reverse();
-
-            //通过
-            //Runtime.Notify(sbs.ToByteArray());
-            //Runtime.Notify(bs.ToSbyteArray());
-            //Runtime.Notify(bs.AsString());
-            //Runtime.Notify("zhanggrip".ToByteArray());
-            //Runtime.Notify(5.Within(10, 5));
-            //Runtime.Notify(10.Within(5, 15));
+            //编译就报错 已修复
+            var m = (new byte[] { 0x12, 0x23, 0x32 }).Reverse();
 
             // return 或 Runtime.Notify(a.Concat(b)) 都会报错
             //var b1 = new byte[] { 0x12, 0x23, 0x32 };
@@ -45,6 +37,10 @@ namespace APITest
             //var nb = (new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 });
             //return nb;
             //Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
+            //Runtime.Notify(bs.AsString());
+            //Runtime.Notify("zhanggrip".ToByteArray());
+            //Runtime.Notify(5.Within(10, 5));
+            //Runtime.Notify(10.Within(5, 15));
 
             //Runtime.Notify((new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
             //Runtime.Notify("zhang".ToByteArray().Concat("grip".ToByteArray()));
@@ -64,11 +60,9 @@ namespace APITest
 
 
             //byte[] bt = (new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 });
-
             //Runtime.Notify(bt);
 
             //return bt;
-
 
             Map<byte[], string> map = new Map<byte[], string>();
             StorageMap whiteListMap = Storage.CurrentContext.CreateMap("whiteListMap");
@@ -82,7 +76,9 @@ namespace APITest
             map[key] = value;
             whiteListMap.Put("whiteList", map.Serialize());
 
-            return map;
+            return h;
+
+            //return "gripzhang".ToByteArray().Reverse();
         }
 
         public static bool Migrate(byte[] script, string manifest)

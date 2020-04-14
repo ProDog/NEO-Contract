@@ -20,31 +20,42 @@ namespace APITest
 
             var notifications = Runtime.GetNotifications();
             Runtime.Notify((uint)notifications.Length);
-            //if (notifications.Length > 0)
-            //{
-            //    var notification = (object[])notifications[0].State;
 
-            //    byte[] scriptHash = notifications[0].ScriptHash;
-            //    bool isTransfer = (string)notification[0] == "Transfer";
 
-            //    if ((byte[])notification[2] == Owner)
-            //        Runtime.Notify((BigInteger)notification[3]);
-            //}       
+            if (notifications.Length > 0)
+            {
+                var notification = (object[])notifications[0].State;
+
+                //byte[] scriptHash = notifications[0].ScriptHash;
+                //bool isTransfer = (string)notification[0] == "Transfer";
+
+                //if ((byte[])notification[2] == Owner)
+                //    Runtime.Notify((BigInteger)notification[3]);
+
+                Runtime.Notify(notification);
+            }
 
 
             if (Runtime.CheckWitness(addressHash))
             {
                 Runtime.Notify(1);
+                //return 0;
             }
+
+            //if (Runtime.CheckWitness(addressHash1))
+            //{
+            //    Runtime.Notify(2);
+            //}
             else
             {
                 Runtime.Notify(0);
+                //return 1;
             }
 
             Runtime.Log("end!");
 
 
-            Runtime.Notify(Runtime.GasLeft);
+            //Runtime.Notify(Runtime.GasLeft);
 
             return Runtime.GasLeft;
         }
