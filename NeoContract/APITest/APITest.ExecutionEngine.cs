@@ -6,7 +6,7 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        private static bool ExecutionEngineTest()
+        public static bool ExecutionEngineTest()
         {
             Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
             Runtime.Notify(tx.Hash, tx.Sender, tx.SystemFee, tx.NetworkFee);

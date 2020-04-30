@@ -9,7 +9,7 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        private static bool ContractTest(byte[] scriptHash, byte[] from, byte[] to, BigInteger amount)
+        public static bool ContractTest(byte[] scriptHash, byte[] from, byte[] to, BigInteger amount)
         {
             //var scriptHash = new byte[] { 162, 210, 135, 131, 161, 45, 171, 207, 225, 70, 39, 213, 236, 229, 148, 229, 63, 247, 220, 163 };
 

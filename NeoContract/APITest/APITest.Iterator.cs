@@ -9,7 +9,7 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        private static bool IteratorTest(byte[] a, byte[] b)
+        public static bool IteratorTest(byte[] a, byte[] b)
         {
             int sum = 0;
             var iterator = Iterator<byte, byte>.Create(a);

@@ -9,7 +9,7 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        private static object StorageTest()
+        public static object StorageTest()
         {
             StorageMap storage = Storage.CurrentContext.CreateMap("test");
             storage.Put("test1", "value");
@@ -69,7 +69,7 @@ namespace APITest
             return storageMap.Get(new byte[] { 0x01 });
         }
 
-        private static bool StorageContextTest(byte[] key, byte[] value)
+        public static bool StorageContextTest(byte[] key, byte[] value)
         {
             Storage.Put(Storage.CurrentContext, "test", 11);
             Runtime.Notify(Storage.Get(Storage.CurrentReadOnlyContext, "test"));

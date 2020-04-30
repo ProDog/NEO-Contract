@@ -9,7 +9,7 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        private static bool JsonTest()
+        public static bool JsonTest()
         {
             Block block = Blockchain.GetBlock(Blockchain.GetHeight());
             Runtime.Notify(block);

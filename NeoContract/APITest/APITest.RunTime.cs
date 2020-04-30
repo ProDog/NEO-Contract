@@ -9,58 +9,49 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        private static object RuntimeTest(byte[] txid)
+        public static object RuntimeTest()
         {
-            Runtime.Notify(Runtime.Trigger.Serialize());
-            Runtime.Notify(Runtime.Platform);
-            Runtime.Notify((long)Runtime.Time);
-            Runtime.Notify(Runtime.InvocationCounter);
+            //var notifications = Runtime.GetNotifications();
+            //Runtime.Notify(notifications);
+            //Runtime.Notify((uint)notifications.Length);
 
-            var notifications0 = Runtime.GetNotifications(txid);
-
-            var notifications = Runtime.GetNotifications();
-            Runtime.Notify((uint)notifications.Length);
-
-
-            if (notifications.Length > 0)
+            try
             {
-                var notification = (object[])notifications[0].State;
+                Runtime.Notify(0);                           
+                try
+                {
+                    try
+                    {
+                        throw new Exception();
+                    }
+                    catch
+                    {
+                        Runtime.Notify("error ");
+                    }
+                }
+                catch
+                {
+                    Runtime.Notify(1);
+                }
 
-                //byte[] scriptHash = notifications[0].ScriptHash;
-                //bool isTransfer = (string)notification[0] == "Transfer";
-
-                //if ((byte[])notification[2] == Owner)
-                //    Runtime.Notify((BigInteger)notification[3]);
-
-                Runtime.Notify(notification);
+                finally
+                {
+                    Runtime.Notify(2);
+                }
             }
-
-
-            if (Runtime.CheckWitness(addressHash))
+            catch
             {
-                Runtime.Notify(1);
-                //return 0;
+                Runtime.Notify(3);                
             }
-
-            //if (Runtime.CheckWitness(addressHash1))
-            //{
-            //    Runtime.Notify(2);
-            //}
-            else
+            finally
             {
-                Runtime.Notify(0);
-                //return 1;
+                Runtime.Notify(4);
             }
-
-            Runtime.Log("end!");
-
-
-            //Runtime.Notify(Runtime.GasLeft);
 
             return Runtime.GasLeft;
         }
 
-        private static object GasLeftTest()
+        public static object GasLeftTest()
         {
             Runtime.Notify((long)Runtime.Time);
             Runtime.Notify(Runtime.InvocationCounter);

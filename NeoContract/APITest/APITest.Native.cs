@@ -9,7 +9,7 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        private static object NativeTest(byte[] from, byte[] to, BigInteger amount)
+        public static object NativeTest(byte[] from, byte[] to, BigInteger amount)
         {
             Native.NEO("transfer", new object[] { from, to, amount });
 

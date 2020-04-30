@@ -5,7 +5,7 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        private static bool BlockchainTest(byte[] hash)
+        public static bool BlockchainTest(byte[] hash)
         {
             Runtime.Notify(Blockchain.GetHeight());
             Runtime.Notify(Blockchain.GetBlock(Blockchain.GetHeight()).Hash);
