@@ -16,8 +16,7 @@ namespace APITest
             //Runtime.Notify((uint)notifications.Length);
 
             try
-            {
-                Runtime.Notify(0);                           
+            {                                      
                 try
                 {
                     try
@@ -28,24 +27,55 @@ namespace APITest
                     {
                         Runtime.Notify("error ");
                     }
+
+                    throw new Exception();
                 }
                 catch
                 {
                     Runtime.Notify(1);
+
+                    try
+                    {
+                        throw new Exception();
+                    }
+                    catch
+                    {
+                        Runtime.Notify(2);
+                    }
+
+                    finally
+                    {
+                        Runtime.Notify(3);
+                    }
                 }
 
                 finally
                 {
-                    Runtime.Notify(2);
+                    Runtime.Notify(4);
                 }
             }
             catch
             {
-                Runtime.Notify(3);                
+                Runtime.Notify(5);
+
+                try
+                {
+                    Runtime.Notify(6);
+                    throw new Exception();
+                }
+                catch
+                {
+                    Runtime.Notify(7);
+                }
+
+                finally
+                {
+                    Runtime.Notify(8);
+                }
             }
             finally
             {
-                Runtime.Notify(4);
+                Runtime.Notify(9);
             }
 
             return Runtime.GasLeft;

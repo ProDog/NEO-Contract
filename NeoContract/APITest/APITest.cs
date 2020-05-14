@@ -20,8 +20,9 @@ namespace APITest
 
         static byte[] bytes = "9bde8f209c88dd0e7ca3bf0af0f476cdd8207789".HexToBytes();
         static byte[] bytes1 = Neo.SmartContract.Framework.Helper.HexToBytes("0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789");
-        static byte[] addressHash = Neo.SmartContract.Framework.Helper.ToScriptHash("NikMd2j2bgVr8HzYgoJjbnwUPyXWnzjDCM");
-        static byte[] addressHash1 = Neo.SmartContract.Framework.Helper.ToScriptHash("Ngcdvsr33fqCJrA1eLXb48YzTqRT9UN6NC");
+        static byte[] addressHash = Neo.SmartContract.Framework.Helper.ToScriptHash("NZ6A2ZLxKQY8hQxDFvuZkecBx8fj6MihS7");
+        static byte[] addressHash1 = Neo.SmartContract.Framework.Helper.ToScriptHash("NSzwm3ZZQNt7puaij6aq7hQ8EBD8r66XgF");
+        static byte[] addressHash2 = Neo.SmartContract.Framework.Helper.ToScriptHash("NLJNmdMBm5LR3J2gErmJzN3PF9qwAzFzCf");
 
         //public static object Main(string operation, object[] args)
         //{
@@ -79,11 +80,11 @@ namespace APITest
 
         public static object Test()
         {
-            if (Runtime.CheckWitness(addressHash))
+            if (Runtime.CheckWitness(addressHash) && Runtime.CheckWitness(addressHash1) && Runtime.CheckWitness(addressHash2))
             {
                 Runtime.Notify(1);
                 //return 0;
-            }           
+            }
             else
             {
                 Runtime.Notify(0);
