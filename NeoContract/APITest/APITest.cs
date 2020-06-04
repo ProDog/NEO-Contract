@@ -1,6 +1,8 @@
 ﻿using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -98,6 +100,36 @@ namespace APITest
         //{
         //    return (a / b, a % b);
         //}
+
+        // 1 or 0
+        public static bool BoolTest()
+        {            
+            return true;
+        }
+
+        // 1 or 0
+        public static bool BoolTest1()
+        {            
+            return "aa" != "aa";
+        }
+
+        // true or false
+        public static bool BoolTest2()
+        {           
+            return new byte[] { 0x12 } != null;
+        }
+
+        // true or false
+        public static bool BoolTest3()
+        {            
+            return new Object() == null;
+        }
+
+        // true or false       
+        public static bool Exists(string message)
+        {
+            return Storage.Get(message) == null;
+        }
 
 
         public static object TestAbort()

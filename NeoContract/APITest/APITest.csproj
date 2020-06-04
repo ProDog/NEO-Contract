@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="dotnet D:\Work\neo_code\neo-devpack-dotnet\src\Neo.Compiler.MSIL\bin\Debug\netcoreapp3.1\neon.dll -f &quot;$(TargetPath)&quot; -o" />
+    <Exec Command="dotnet D:\Work\PR-Test\neo-devpack-dotnet-fix-enumerator\src\Neo.Compiler.MSIL\bin\Debug\netcoreapp3.1\neon.dll -f &quot;$(TargetPath)&quot; -o" />
   </Target>
 
   <ItemGroup>

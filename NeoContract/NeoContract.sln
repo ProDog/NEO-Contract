@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.SmartContract.Framework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.NEP11.CSharp", "Template.NEP11.CSharp\Template.NEP11.CSharp.csproj", "{DD551FBE-BA35-4E95-85A6-CD6376319299}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{9E72A2E3-1FE8-4CE8-AC58-95D245C3C306}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{9E72A2E3-1FE8-4CE8-AC58-95D245C3C306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neo2-contract", "neo2-contract\neo2-contract.csproj", "{8ED4934A-27EA-4BE8-B7C5-20EE959F9677}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{9E72A2E3-1FE8-4CE8-AC58-95D245C3C306}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E72A2E3-1FE8-4CE8-AC58-95D245C3C306}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E72A2E3-1FE8-4CE8-AC58-95D245C3C306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ED4934A-27EA-4BE8-B7C5-20EE959F9677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ED4934A-27EA-4BE8-B7C5-20EE959F9677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ED4934A-27EA-4BE8-B7C5-20EE959F9677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ED4934A-27EA-4BE8-B7C5-20EE959F9677}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
