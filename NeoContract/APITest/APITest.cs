@@ -81,25 +81,24 @@ namespace APITest
         //}
 
         public static object Test()
-        {
-            if (Runtime.CheckWitness(addressHash) && Runtime.CheckWitness(addressHash1) && Runtime.CheckWitness(addressHash2))
-            {
-                Runtime.Notify(1);
-                //return 0;
-            }
-            else
-            {
-                Runtime.Notify(0);
-                //return 1;
-            }
-
-            return 1;
+        {            
+            return true;
         }
 
-        //public static (int, int) Return(int a, int b)
-        //{
-        //    return (a / b, a % b);
-        //}
+        public static object Test(int c)
+        {            
+            return c;
+        }
+
+        private static bool Test1(int a, int b)
+        {
+            return a < b;
+        }
+
+        private static (int, int) Test2(int a, int b)
+        {
+            return (a / b, a * b);
+        }
 
         // 1 or 0
         public static bool BoolTest()

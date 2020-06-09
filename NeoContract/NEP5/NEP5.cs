@@ -25,7 +25,7 @@ namespace NEP5
         public static string[] SupportedStandards() => new string[] { "NEP-5", "NEP-10" };      
 
         //fa 79 76 3b 86 76 7b 42 68 72 34 9f d2 fd bc cf 16 2e e2 20 合约中此处用小端序
-        private static byte[] Owner() => new byte[] { 0xfa, 0x79, 0x76, 0x3b, 0x86, 0x76, 0x7b, 0x42, 0x68, 0x72, 0x34, 0x9f, 0xd2, 0xfd, 0xbc, 0xcf, 0x16, 0x2e, 0xe2, 0x20 };
+        private static byte[] Owner() => "NYX6FuequzNvtajBpKtHkiy6ggKFTmtDjv".ToScriptHash();
 
         public static ulong TokensPerNEO() => 1;
 
