@@ -26,69 +26,17 @@ namespace APITest
         static byte[] addressHash1 = Neo.SmartContract.Framework.Helper.ToScriptHash("NSzwm3ZZQNt7puaij6aq7hQ8EBD8r66XgF");
         static byte[] addressHash2 = Neo.SmartContract.Framework.Helper.ToScriptHash("NLJNmdMBm5LR3J2gErmJzN3PF9qwAzFzCf");
 
-        //public static object Main(string operation, object[] args)
-        //{
-
-        //    if (Runtime.Trigger == TriggerType.Verification)
-        //    {
-        //        return Runtime.CheckWitness(Owner);
-        //    }
-
-        //    else if (Runtime.Trigger == TriggerType.Application)
-        //    {
-        //        if (operation == "executionEngine") return ExecutionEngineTest();
-
-        //        if (operation == "account") return AccountTest((byte[])args[0]);
-
-        //        if (operation == "blockchain") return BlockchainTest((byte[])args[0]);
-
-        //        if (operation == "runtime") return RuntimeTest((byte[])args[0]);
-
-        //        if (operation == "gasleft") return GasLeftTest();
-
-        //        if (operation == "contract") return ContractTest((byte[])args[0], (byte[])args[1], (byte[])args[2], (BigInteger)args[3]);
-
-        //        if (operation == "helper") return HelperTest();
-
-        //        if (operation == "json") return JsonTest();
-
-        //        if (operation == "native") return NativeTest((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
-
-        //        if (operation == "storage") return StorageTest();
-
-        //        if (operation == "storageContext") return StorageContextTest((byte[])args[0], (byte[])args[1]);
-
-        //        if (operation == "crypto") return CryptoTest((byte[])args[0], (byte[])args[1], (byte[])args[2]);
-
-        //        if (operation == "multiCrypto") return MultiCryptoTest((byte[])args[0], (byte[][])args[1], (byte[][])args[2]);
-
-        //        if (operation == "iterator") return IteratorTest((byte[])args[0], (byte[])args[1]);
-
-        //        if (operation == "enumerator") return EnumeratorTest((byte[])args[0], (byte[])args[1]);
-
-        //        if (operation == "assert") return TestAssert((BigInteger)args[0]);
-
-        //        if (operation == "abort") return TestAbort();
-
-        //        if (operation == "migrate") return Migrate((byte[])args[0], (string)args[1]);
-
-        //        //if (operation == "return") return Return(6, 2);
-
-        //        //if (operation == "test") return Test();
-
-        //    }
-        //    return false;
-        //}
+        
 
         public static object Test()
         {            
             return true;
         }
 
-        public static object Test(int c)
-        {            
-            return c;
-        }
+        //public static object Test(int c)
+        //{            
+        //    return c;
+        //}
 
         private static bool Test1(int a, int b)
         {

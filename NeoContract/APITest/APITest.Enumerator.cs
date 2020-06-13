@@ -57,7 +57,7 @@ namespace APITest
 
         public static Enumerator<BigInteger> GetEnumerator()
         {
-            var enumerator = Enumerator<BigInteger>.Create(new BigInteger[4] { 12, 11, 1,1 });
+            var enumerator = Enumerator<BigInteger>.Create(new BigInteger[4] { 12, 11, 1, 1 });
             return enumerator;
         }
     }

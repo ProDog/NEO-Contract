@@ -1,15 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="dotnet D:\Work\PR-Test\neo-devpack-dotnet-fix-enumerator\src\Neo.Compiler.MSIL\bin\Debug\netcoreapp3.1\neon.dll -f &quot;$(TargetPath)&quot; -o" />
+    <Exec Command="dotnet D:\Work\PR-Test\ShawnYun\neo-devpack-dotnet\src\Neo.Compiler.MSIL\bin\Debug\netcoreapp3.1\neon.dll -f &quot;$(TargetPath)&quot; -o" />
   </Target>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\neo_code\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj" />
+    <ProjectReference Include="..\..\..\..\PR-Test\ShawnYun\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj" />
   </ItemGroup>
 
 </Project>

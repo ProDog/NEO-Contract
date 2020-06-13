@@ -13,7 +13,7 @@ namespace APITest
         {
             //var scriptHash = new byte[] { 162, 210, 135, 131, 161, 45, 171, 207, 225, 70, 39, 213, 236, 229, 148, 229, 63, 247, 220, 163 };
 
-            var result = Contract.Call(scriptHash, ContractParameterType.Any, "transfer", new object[] { from, to, amount });
+            var result = Contract.Call(scriptHash, "transfer", new object[] { from, to, amount });
 
             Runtime.Notify(result);
 
@@ -39,7 +39,7 @@ namespace APITest
 
         public static BigInteger ContractTest1(byte[] scriptHash)
         {            
-            var totalSupply = (BigInteger)Contract.Call(scriptHash, ContractParameterType.Any, "totalSupply", new object[] { });
+            var totalSupply = (BigInteger)Contract.Call(scriptHash, "totalSupply", new object[] { });
             Runtime.Notify(totalSupply);
 
             return totalSupply;
