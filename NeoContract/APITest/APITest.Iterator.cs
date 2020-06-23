@@ -18,7 +18,7 @@ namespace APITest
             {
                 sum += iterator.Value;
             }
-            Runtime.Notify(sum);
+            Runtime.Notify("aa", sum);
 
 
             sum = 1;

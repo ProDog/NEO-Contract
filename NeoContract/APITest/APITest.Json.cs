@@ -12,16 +12,16 @@ namespace APITest
         public static bool JsonTest()
         {
             Block block = Blockchain.GetBlock(Blockchain.GetHeight());
-            Runtime.Notify(block);
+            Runtime.Notify("aa", block);
 
             var stringBlock = Json.Serialize(block);
-            Runtime.Notify(stringBlock);
+            Runtime.Notify("aa", stringBlock);
 
             var vBlock = Json.Deserialize(stringBlock);
-            Runtime.Notify(vBlock);
+            Runtime.Notify("aa", vBlock);
 
             Block cBlock = Json.Deserialize(stringBlock) as Block;
-            Runtime.Notify(cBlock);
+            Runtime.Notify("aa", cBlock);
 
             return true;
         }

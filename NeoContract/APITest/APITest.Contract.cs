@@ -15,7 +15,7 @@ namespace APITest
 
             var result = Contract.Call(scriptHash, "transfer", new object[] { from, to, amount });
 
-            Runtime.Notify(result);
+            Runtime.Notify("aa", result);
 
             //Contract.CallEx(scriptHash, ContractParameterType.Any, "transfer", new object[] { from, to, amount }, Neo.SmartContract.CallFlags.All);
 
@@ -40,7 +40,7 @@ namespace APITest
         public static BigInteger ContractTest1(byte[] scriptHash)
         {            
             var totalSupply = (BigInteger)Contract.Call(scriptHash, "totalSupply", new object[] { });
-            Runtime.Notify(totalSupply);
+            Runtime.Notify("aa", totalSupply);
 
             return totalSupply;
         }

@@ -19,7 +19,7 @@ namespace APITest
                 sum += enumerator.Value;
             }
 
-            Runtime.Notify(sum);
+            Runtime.Notify("aa", sum);
 
             sum = 0;
             var enumeratorA = Enumerator<byte>.Create(a);
@@ -30,7 +30,7 @@ namespace APITest
             {
                 sum += enumeratorC.Value;
             }
-            Runtime.Notify(sum);
+            Runtime.Notify("aa", sum);
 
             return true;
         }

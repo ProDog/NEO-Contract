@@ -9,17 +9,17 @@ namespace APITest
         public static bool ExecutionEngineTest()
         {
             Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
-            Runtime.Notify(tx.Hash, tx.Sender, tx.SystemFee, tx.NetworkFee);
+            Runtime.Notify("aa", tx.Hash, tx.Sender, tx.SystemFee, tx.NetworkFee);
 
             //little-endian
             var executingScriptHash = ExecutionEngine.ExecutingScriptHash;
-            Runtime.Notify(executingScriptHash);
+            Runtime.Notify("aa", executingScriptHash);
 
             var callingScriptHash = ExecutionEngine.CallingScriptHash;
-            Runtime.Notify(callingScriptHash);
+            Runtime.Notify("aa", callingScriptHash);
 
             var entryScriptHash = ExecutionEngine.EntryScriptHash;
-            Runtime.Notify(entryScriptHash);
+            Runtime.Notify("aa", entryScriptHash);
 
             return true;
         }
