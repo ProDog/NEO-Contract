@@ -13,7 +13,7 @@ namespace APITest
         {
             byte[] bs = new byte[] { 216, 234, 162, 12, 34 };
             sbyte[] sbs = new sbyte[] { -123, 124, -16, 127, 28 };
-            Runtime.Notify("aa", bs.ToBigInteger());
+            Notify("aa", bs.ToBigInteger());
 
             var a = bs.AsString();
             var b = "gripzhang".ToByteArray();
@@ -31,10 +31,10 @@ namespace APITest
 
             string testStr = "test string";
             //return testStr.ToByteArray();
-            Runtime.Notify("aa", testStr.ToByteArray());
-            Runtime.Notify("aa", (new sbyte[] { -123, 124, -16, 127, 28 }));
-            Runtime.Notify("aa", (new byte[] { 123, 124, 16, 127, 28 }));
-            Runtime.Notify("aa", ((sbyte)90).ToByteArray());
+            Notify("aa", testStr.ToByteArray());
+            Notify("aa", (new sbyte[] { -123, 124, -16, 127, 28 }));
+            Notify("aa", (new byte[] { 123, 124, 16, 127, 28 }));
+            Notify("aa", ((sbyte)90).ToByteArray());
 
             //return m;
 
@@ -47,14 +47,14 @@ namespace APITest
             //return b3;
             var nb = (new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 });
             //return nb;
-            Runtime.Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
-            Runtime.Notify("aa", bs.AsString());
-            Runtime.Notify("aa", "zhanggrip".ToByteArray());
-            Runtime.Notify("aa", 5.Within(10, 5));
-            Runtime.Notify("aa", 10.Within(5, 15));
+            Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
+            Notify("aa", bs.AsString());
+            Notify("aa", "zhanggrip".ToByteArray());
+            Notify("aa", 5.Within(10, 5));
+            Notify("aa", 10.Within(5, 15));
 
-            Runtime.Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
-            Runtime.Notify("aa", "zhang".ToByteArray().Concat("grip".ToByteArray()));
+            Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 }));
+            Notify("aa", "zhang".ToByteArray().Concat("grip".ToByteArray()));
 
             //invoke 报错
             //return (new byte[] { 0x12, 0x23, 0x32 }).Range(0, 3);
@@ -62,15 +62,15 @@ namespace APITest
             //return (new byte[] { 0x12, 0x23, 0x32 }).Last(1);
 
             //invoke正常，同步区块后 Persist 报错
-            Runtime.Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Range(0, 1));
-            Runtime.Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Take(1));
-            Runtime.Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Last(1));
+            Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Range(0, 1));
+            Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Take(1));
+            Notify("aa", (new byte[] { 0x12, 0x23, 0x32 }).Last(1));
 
-            Runtime.Notify("aa", "gripzhang".ToByteArray().Reverse());
+            Notify("aa", "gripzhang".ToByteArray().Reverse());
 
             byte[] bt = (new byte[] { 0x12, 0x23, 0x32 }).Concat(new byte[] { 0x55, 0x23 });
 
-            Runtime.Notify(a, b, c, d, e, f, g, h, m, b1, b2, b3, nb, bt);
+            Notify(a, b, c, d, e, f, g, h, m, b1, b2, b3, nb, bt);
 
             Map<byte[], string> map = new Map<byte[], string>();
             StorageMap whiteListMap = Storage.CurrentContext.CreateMap("whiteListMap");

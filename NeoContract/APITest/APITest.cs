@@ -22,21 +22,16 @@ namespace APITest
         //static byte[] addressHash1 = Neo.SmartContract.Framework.Helper.ToScriptHash("NSzwm3ZZQNt7puaij6aq7hQ8EBD8r66XgF");
         //static byte[] addressHash2 = Neo.SmartContract.Framework.Helper.ToScriptHash("NLJNmdMBm5LR3J2gErmJzN3PF9qwAzFzCf");
 
-        #region Notifications
-        [DisplayName("TestEvent")]
-        public static event Action<byte[], byte[], BigInteger> OnEvent;
-        #endregion
-
         public static byte[] NeoToken = new byte[] { 0x89, 0x77, 0x20, 0xd8, 0xcd, 0x76, 0xf4, 0xf0, 0x0a, 0xbf, 0xa3, 0x7c, 0x0e, 0xdd, 0x88, 0x9c, 0x20, 0x8f, 0xde, 0x9b };
         public static byte[] GasToken = new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xa1, 0xd8, 0x96, 0xf1, 0x23, 0x8c };
 
         public static int num = 1;
         public static string str = "test";
 
-        public static byte[] Test()
-        {
-            return NeoToken;
-        }
+        //public static byte[] Test()
+        //{
+        //    return NeoToken;
+        //}
 
         public static int Test1()
         {
@@ -49,12 +44,22 @@ namespace APITest
         }
 
 
+        public delegate void mydelegate(params object[] arg);
+
+        [DisplayName("event")]
+        public static event mydelegate Notify;
+
+        [DisplayName("TestEvent")]
+        public static event Action<byte[], BigInteger> OnEvent;
+
         public static bool NotifyTest()
         {
-            OnEvent(NeoToken, GasToken, 1);
+            OnEvent(new byte[] { 0x89, 0x77, 0x20, 0xd8}, 1);
 
-            Runtime.Notify("EventName", 11, 12, 13);
+            Notify("str", 11, 12);
+
             Runtime.Log("test");
+
             return true;
         }
 

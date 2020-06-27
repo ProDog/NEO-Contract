@@ -18,7 +18,7 @@ namespace APITest
             {
                 sum += iterator.Value;
             }
-            Runtime.Notify("aa", sum);
+            Notify("aa", sum);
 
 
             sum = 1;
@@ -26,12 +26,12 @@ namespace APITest
             var iteratorB = Iterator<byte, byte>.Create(b);
             var iteratorC = iteratorA.Concat(iteratorB);
 
-            //while (iteratorC.Next())
-            //{
-            //    sum += iteratorC.Key;
-            //    sum += iteratorC.Value;
-            //}
-            //Runtime.Notify(sum);
+            while (iteratorC.Next())
+            {
+                sum += iteratorC.Key;
+                sum += iteratorC.Value;
+            }
+            Notify(sum);
 
             //Map<byte, byte> map = new Map<byte, byte>();
             //map[2] = 12;
@@ -79,18 +79,18 @@ namespace APITest
 
             //var iteratorW = Iterator<byte[], byte[]>.Create(map);
 
-            //Runtime.Notify(iteratorW);
+            //Notify(iteratorW);
 
-            //Runtime.Notify(iteratorW.Values);
+            //Notify(iteratorW.Values);
 
-            //Runtime.Notify(iteratorW.Keys);
+            //Notify(iteratorW.Keys);
 
 
-            //Runtime.Notify(iteratorA);
+            //Notify(iteratorA);
 
-            //Runtime.Notify(iteratorA.Values);
+            //Notify(iteratorA.Values);
 
-            //Runtime.Notify(iteratorA.Keys);
+            //Notify(iteratorA.Keys);
 
             return iteratorA.Keys;
         }

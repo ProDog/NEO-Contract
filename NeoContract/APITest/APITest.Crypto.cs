@@ -32,15 +32,15 @@ namespace APITest
 
         public static object Hash160Test(byte[] msg)
         {
-            Runtime.Notify("aa", Crypto.RIPEMD160(msg));
-            Runtime.Notify("aa", Crypto.Hash160(msg));
+            Notify("aa", Crypto.RIPEMD160(msg));
+            Notify("aa", Crypto.Hash160(msg));
             return Crypto.Hash160(msg);
         }
 
         public static object Hash256Test(byte[] msg)
         {
-            Runtime.Notify("aa", Crypto.Hash256(msg));
-            Runtime.Notify("aa", Crypto.SHA256(msg));
+            Notify("aa", Crypto.Hash256(msg));
+            Notify("aa", Crypto.SHA256(msg));
             return Crypto.Hash256(msg);
         }
     }

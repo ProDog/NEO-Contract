@@ -16,7 +16,7 @@ namespace APITest
             Native.GAS("transfer", new object[] { from, to, amount });
 
             var res = Native.Policy("supportedStandards", new object[] { });
-            Runtime.Notify("aa", res);
+            Notify("aa", res);
 
             return true;
         }
