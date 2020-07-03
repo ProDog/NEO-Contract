@@ -9,21 +9,21 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        public static bool JsonTest()
-        {
-            Block block = Blockchain.GetBlock(Blockchain.GetHeight());
-            Notify("aa", block);
+        //public static bool JsonTest()
+        //{
+        //    Block block = Blockchain.GetBlock(Blockchain.GetHeight());
+        //    Notify("aa", block);
 
-            var stringBlock = Json.Serialize(block);
-            Notify("aa", stringBlock);
+        //    var stringBlock = Json.Serialize(block);
+        //    Notify("aa", stringBlock);
 
-            var vBlock = Json.Deserialize(stringBlock);
-            Notify("aa", vBlock);
+        //    var vBlock = Json.Deserialize(stringBlock);
+        //    Notify("aa", vBlock);
 
-            Block cBlock = Json.Deserialize(stringBlock) as Block;
-            Notify("aa", cBlock);
+        //    Block cBlock = Json.Deserialize(stringBlock) as Block;
+        //    Notify("aa", cBlock);
 
-            return true;
-        }
+        //    return true;
+        //}
     }
 }

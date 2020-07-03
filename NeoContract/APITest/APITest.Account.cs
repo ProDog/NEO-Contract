@@ -9,14 +9,14 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        //scriptHash use little-endian
-        public static bool AccountTest(byte[] scriptHash)
-        {
-            var isStandard = Account.IsStandard(scriptHash);
+        ////scriptHash use little-endian
+        //public static bool AccountTest(byte[] scriptHash)
+        //{
+        //    var isStandard = Account.IsStandard(scriptHash);
 
-            return isStandard;
+        //    return isStandard;
 
-            return true;
-        }
+        //    return true;
+        //}
     }
 }
