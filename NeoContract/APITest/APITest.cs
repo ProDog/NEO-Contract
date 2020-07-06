@@ -14,7 +14,7 @@ namespace APITest
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public static string Name() => "SDK API TEST CONTRACT";
 
-        //private static byte[] Owner = "NikMd2j2bgVr8HzYgoJjbnwUPyXWnzjDCM".ToScriptHash();
+        private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
 
         //static byte[] bytes = "9bde8f209c88dd0e7ca3bf0af0f476cdd8207789".HexToBytes();
         //static byte[] bytes1 = Neo.SmartContract.Framework.Helper.HexToBytes("0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789");
@@ -27,6 +27,14 @@ namespace APITest
 
         //public static int num = 1;
         //public static string str = "test";
+
+
+        // When this contract address is included in the transaction signature,
+        // this method will be triggered as a VerificationTrigger to verify that the signature is correct.
+        public static bool Verify()
+        {
+            return Runtime.CheckWitness(Owner);
+        }
 
         public static byte[] Test1()
         {
