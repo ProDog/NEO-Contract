@@ -9,7 +9,7 @@
   </Target>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\PR-Test\shargon\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj" />
+    <ProjectReference Include="..\..\..\..\neo_code\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj" />
   </ItemGroup>
 
 </Project>

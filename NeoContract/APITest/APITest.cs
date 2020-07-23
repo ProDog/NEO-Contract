@@ -1,5 +1,6 @@
 ﻿using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
+using Neo.SmartContract.Framework.Services.System;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,11 +35,6 @@ namespace APITest
         public static bool Verify()
         {
             return Runtime.CheckWitness(Owner);
-        }
-
-        public static byte[] Test1()
-        {
-            return myAddr;
         }
 
         //public static byte[] Test1()
@@ -134,5 +130,42 @@ namespace APITest
         //    Runtime.Notify(1);
         //    return true;
         //}
+
+        public static object Test1()
+        {
+            MyObject myObject = new MyObject();
+            myObject.obj = "test";
+            myObject.callback = create();
+            myObject.bol = true;
+            myObject.it = 1223;
+            myObject.byteString = "testqqwasdas";
+            myObject.byteArray = new byte[] { 8, 12, 34, 53, 12 };
+            myObject.array = new string[] { "aa", "bb", "cc0" };
+            myObject.map = new Map<byte, byte>();                     
+
+            Map<byte, byte> map1 = new Map<byte, byte>();
+            map1[2] = 12;
+            map1[0] = 24;
+            
+            myObject.map = map1;
+            myObject.iterator = Iterator<byte, byte>.Create(map1);
+
+            return myObject;
+        }
+
+
+    }
+
+    public class MyObject
+    {
+        public object obj;
+        public object callback;
+        public bool bol;
+        public int it;
+        public string byteString;
+        public byte[] byteArray;
+        public string[] array;
+        public Map<byte,byte> map;
+        public Iterator<byte, byte> iterator;
     }
 }

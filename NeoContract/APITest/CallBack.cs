@@ -92,7 +92,7 @@ namespace APITest
 
         public static string[][] MyMethodWithArg(byte[][] num)
         {
-            return new string[][] { new string[] { num[0].AsString() }, new string[] { num[0].AsString() } };
+            return new string[][] { new string[] { num[0].ToByteString() }, new string[] { num[0].ToByteString() } };
         }
 
         public static string[][] CallFuncPointerWithArg()

@@ -1,76 +1,35 @@
 ﻿using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using System;
-using System.ComponentModel;
 using System.Numerics;
 
-namespace ContractDemo
+namespace NeoContract
 {
-    [Features(ContractFeatures.HasStorage | ContractFeatures.Payable)]
-    public class Class1 : SmartContract
+    [Features(ContractFeatures.HasStorage)]
+    public class Contract1 : SmartContract
     {
-        public delegate void mydelegate(params object[] arg);
+        private static readonly StorageMap Data = Storage.CurrentContext.CreateMap("data");
 
-        [DisplayName("event")]
-        public static event mydelegate Notify;
-
-        private static byte[] myAddr = "NNB8GKS7mdMXXGsAwvXYyEGonkEjDbqNkG".ToScriptHash();
-
-        public static byte[] test()
+        public static void Put(string message)
         {
-            return myAddr;
+            Data.Put(message, Blockchain.GetHeight());
         }
 
+        public static BigInteger Get(string msg)
+        {
+            return Data.Get(msg)?.ToBigInteger() ?? 0;
+        }
 
-        //public static object iteratorTest()
-        //{
-        //    //var a = new byte[] { 0x22, 0x23, 0x24 };
-        //    //var b = new byte[] { 0x22, 0x23, 0x24 };
+        public static void Put2(string message)
+        {
+            var Data2 = Storage.CurrentContext.CreateMap("data");
+            Data2.Put(message, Blockchain.GetHeight());
+        }
 
-        //    //int sum = 0;
-        //    //var iterator = Iterator<byte, byte>.Create(a);
-
-        //    //while (iterator.Next())
-        //    //{
-        //    //    sum += iterator.Value;
-        //    //}
-
-        //    //sum = 1;
-        //    //var iteratorA = Iterator<byte, byte>.Create(a);
-        //    //var iteratorB = Iterator<byte, byte>.Create(b);
-        //    //var iteratorC = iteratorA.Concat(iteratorB);
-
-        //    //while (iteratorC.Next())
-        //    //{
-        //    //    sum += iteratorC.Key;
-        //    //    sum += iteratorC.Value;
-        //    //}
-
-        //    //FAULT
-
-        //    //Map<byte[], byte[]> map = new Map<byte[], byte[]>();
-        //    //map[new byte[] { 0x22, 0x23, 0x24 }] = new byte[] { 0x32, 0x33, 0x34 };
-        //    //map[new byte[] { 0x42, 0x43, 0x44 }] = new byte[] { 0x52, 0x53, 0x54 };
-        //    //map[new byte[] { 0x62, 0x63, 0x64 }] = new byte[] { 0x82, 0x83, 0x84 };
-
-
-        //    Map<byte[], byte> map = new Map<byte[], byte>();
-        //    map[new byte[] { 0x22, 0x23, 0x24 }] = 0x34;
-        //    map[new byte[] { 0x42, 0x43, 0x44 }] = 0x54;
-        //    map[new byte[] { 0x62, 0x63, 0x64 }] = 0x84;
-
-        //    //var iteratorW = Iterator<byte[], byte[]>.Create(map);
-        //    //iterator.Next();
-        //    //return iterator.Value;
-
-        //    return map;
-        //}
-
-        //public static object getIterator()
-        //{
-        //    var iteratorA = Iterator<BigInteger, BigInteger>.Create(new BigInteger[] { -10 });
-
-        //    return iteratorA;
-        //}
+        public static BigInteger Get2(string msg)
+        {
+            var Data2 = Storage.CurrentContext.CreateMap("data");
+            return Data2.Get(msg)?.ToBigInteger() ?? 0;
+        }
     }
 }

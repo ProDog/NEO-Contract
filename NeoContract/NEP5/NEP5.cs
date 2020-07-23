@@ -20,12 +20,10 @@ namespace NEP5
    
         public static ulong MaxSupply() => 1_000_000_000;
 
-        public static ulong InitialSupply() => 20_000_000;
- 
-        public static string[] SupportedStandards() => new string[] { "NEP-5", "NEP-10" };      
+        public static ulong InitialSupply() => 20_000_000; 
 
         //fa 79 76 3b 86 76 7b 42 68 72 34 9f d2 fd bc cf 16 2e e2 20 合约中此处用小端序
-        private static byte[] Owner() => "NYX6FuequzNvtajBpKtHkiy6ggKFTmtDjv".ToScriptHash();
+        private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
 
         public static ulong TokensPerNEO() => 1;
 
@@ -37,56 +35,25 @@ namespace NEP5
         #endregion
 
         #region Notifications
+
+        public delegate void mydelegate(params object[] arg);
+
+        [DisplayName("event")]
+        public static event mydelegate Notify;
+       
         [DisplayName("Transfer")]
-        public static event Action<byte[], byte[], BigInteger> OnTransfer;
-
-        [DisplayName("test1")]
-        public static event Action<BigInteger> OnTest1;
-
-        [DisplayName("test2")]
-        public static event Action<byte[]> OnTest2;
+        public static event Action<byte[], byte[], BigInteger> OnTransfer;       
 
         #endregion
 
         #region Storage key prefixes
         private static byte[] GetStoragePrefixBalance() => new byte[] { 0x01, 0x01 };
-
         private static byte[] GetStoragePrefixContract() => new byte[] { 0x02, 0x02 };
         #endregion
 
-        public static object Main(string operation, object[] args)
+        public static string[] SupportedStandards()
         {
-            if (Runtime.Trigger == TriggerType.Verification)
-            {
-                return Runtime.CheckWitness(Owner());
-            }
-
-            else if (Runtime.Trigger == TriggerType.Application)
-            {
-                #region NEP5 METHODS
-                if (operation == "name") return Name();
-                if (operation == "symbol") return Symbol();
-                if (operation == "decimals") return Decimals();
-                if (operation == "totalSupply") return TotalSupply();
-                if (operation == "balanceOf") return BalanceOf((byte[])args[0]);
-                if (operation == "transfer") return Transfer((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
-                #endregion
-
-                #region NEP10 METHODS
-                if (operation == "supportedStandards") return SupportedStandards();
-                #endregion
-
-                #region CROWDSALE METHODS
-                if (operation == "mint") return Mint();
-                #endregion
-
-                #region ADMIN METHODS
-                if (operation == "deploy") return Deploy();
-                if (operation == "migrate") return Migrate((byte[])args[0], (string)args[1]);
-                if (operation == "destroy") return Destroy();
-                #endregion
-            }
-            return false;
+            return new string[] { "NEP-5", "NEP-10" };
         }
 
         public static BigInteger TotalSupply()
@@ -167,22 +134,13 @@ namespace NEP5
             {
                 var notification = notifications[i];
 
-                OnTest1(0);
-                OnTest2(notification.ScriptHash);
-                OnTest2(NeoToken());
-                OnTest2(GasToken());
-
                 //此处ScriptHash是tokenhash的小端格式
                 if (notification.ScriptHash == NeoToken())
                 {
-                    OnTest1(1);
-
                     neo += GetTransactionAmount(notification.State);
                 }
                 else if (notification.ScriptHash == GasToken())
                 {
-                    OnTest1(2);
-
                     gas += GetTransactionAmount(notification.State);
                 }
             }
@@ -224,7 +182,7 @@ namespace NEP5
 
         public static bool Deploy()
         {
-            if (!Runtime.CheckWitness(Owner()))
+            if (!Runtime.CheckWitness(Owner))
             {
                 return false;
             }
@@ -234,16 +192,16 @@ namespace NEP5
                 throw new Exception("Contract already deployed");
 
             StorageMap balances = Storage.CurrentContext.CreateMap(GetStoragePrefixBalance());
-            balances.Put(Owner(), InitialSupply());
+            balances.Put(Owner, InitialSupply());
             contract.Put("totalSupply", InitialSupply());
 
-            OnTransfer(null, Owner(), InitialSupply());
+            OnTransfer(null, Owner, InitialSupply());
             return true;
         }
 
         public static bool Migrate(byte[] script, string manifest)
         {
-            if (!Runtime.CheckWitness(Owner()))
+            if (!Runtime.CheckWitness(Owner))
             {
                 return false;
             }
@@ -257,7 +215,7 @@ namespace NEP5
 
         public static bool Destroy()
         {
-            if (!Runtime.CheckWitness(Owner()))
+            if (!Runtime.CheckWitness(Owner))
             {
                 return false;
             }
