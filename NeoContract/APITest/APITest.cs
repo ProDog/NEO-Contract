@@ -5,17 +5,26 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Numerics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace APITest
 {
     [Features(ContractFeatures.HasStorage | ContractFeatures.Payable)]
     public partial class APITest : SmartContract
-    {
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static string Name() => "SDK API TEST CONTRACT";
-
+    {        
         private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
+        public static bool Verify()
+        {
+            return Runtime.CheckWitness(Owner);
+        }
+
+        //public delegate void Notify(params object[] arg);
+
+        //[DisplayName("event_name")]
+        //public static event Notify OnNotify;
+
+
 
         //static byte[] bytes = "9bde8f209c88dd0e7ca3bf0af0f476cdd8207789".HexToBytes();
         //static byte[] bytes1 = Neo.SmartContract.Framework.Helper.HexToBytes("0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789");
@@ -23,7 +32,6 @@ namespace APITest
         //static byte[] addressHash1 = Neo.SmartContract.Framework.Helper.ToScriptHash("NSzwm3ZZQNt7puaij6aq7hQ8EBD8r66XgF");
         //static byte[] addressHash2 = Neo.SmartContract.Framework.Helper.ToScriptHash("NLJNmdMBm5LR3J2gErmJzN3PF9qwAzFzCf");
 
-        //public static byte[] NeoToken = new byte[] { 0x89, 0x77, 0x20, 0xd8, 0xcd, 0x76, 0xf4, 0xf0, 0x0a, 0xbf, 0xa3, 0x7c, 0x0e, 0xdd, 0x88, 0x9c, 0x20, 0x8f, 0xde, 0x9b };
         //public static byte[] GasToken = new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xa1, 0xd8, 0x96, 0xf1, 0x23, 0x8c };
 
         //public static int num = 1;
@@ -32,29 +40,16 @@ namespace APITest
 
         // When this contract address is included in the transaction signature,
         // this method will be triggered as a VerificationTrigger to verify that the signature is correct.
-        public static bool Verify()
-        {
-            return Runtime.CheckWitness(Owner);
-        }
 
-        //public static byte[] Test1()
-        //{
-        //    return myAddr;
-        //}
-
-        //public static string Test2()
-        //{
-        //    return str;
-        //}
-
-
-        //public delegate void mydelegate(params object[] arg);
-
-        //[DisplayName("event")]
-        //public static event mydelegate Notify;
 
         //[DisplayName("TestEvent")]
-        //public static event Action<byte[], BigInteger> OnEvent;
+        //public static event Action<byte[]> OnEvent;
+
+        //static byte[] NeoToken = new byte[] { 0x89, 0x77, 0x20, 0xd8, 0xcd, 0x76, 0xf4, 0xf0, 0x0a, 0xbf, 0xa3, 0x7c, 0x0e, 0xdd, 0x88, 0x9c, 0x20, 0x8f, 0xde, 0x9b };
+        //public static byte[] Test1()
+        //{
+        //    return NeoToken;
+        //}
 
         //public static bool NotifyTest()
         //{
@@ -131,27 +126,27 @@ namespace APITest
         //    return true;
         //}
 
-        public static object Test1()
-        {
-            MyObject myObject = new MyObject();
-            myObject.obj = "test";
-            myObject.callback = create();
-            myObject.bol = true;
-            myObject.it = 1223;
-            myObject.byteString = "testqqwasdas";
-            myObject.byteArray = new byte[] { 8, 12, 34, 53, 12 };
-            myObject.array = new string[] { "aa", "bb", "cc0" };
-            myObject.map = new Map<byte, byte>();                     
+        //public static object Test2()
+        //{
+        //    MyObject myObject = new MyObject();
+        //    myObject.obj = "test";
+        //    myObject.callback = create();
+        //    myObject.bol = true;
+        //    myObject.it = 1223;
+        //    myObject.byteString = "testqqwasdas";
+        //    myObject.byteArray = new byte[] { 8, 12, 34, 53, 12 };
+        //    myObject.array = new string[] { "aa", "bb", "cc0" };
+        //    myObject.map = new Map<byte, byte>();                     
 
-            Map<byte, byte> map1 = new Map<byte, byte>();
-            map1[2] = 12;
-            map1[0] = 24;
-            
-            myObject.map = map1;
-            myObject.iterator = Iterator<byte, byte>.Create(map1);
+        //    Map<byte, byte> map1 = new Map<byte, byte>();
+        //    map1[2] = 12;
+        //    map1[0] = 24;
 
-            return myObject;
-        }
+        //    myObject.map = map1;
+        //    myObject.iterator = Iterator<byte, byte>.Create(map1);
+
+        //    return myObject;
+        //}
 
 
     }
@@ -167,5 +162,6 @@ namespace APITest
         public string[] array;
         public Map<byte,byte> map;
         public Iterator<byte, byte> iterator;
+        public Pointer pointer;
     }
 }

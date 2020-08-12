@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neo2-contract", "neo2-contr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContractDemo", "ContractDemo\ContractDemo.csproj", "{DDE83F8A-EA91-42FB-8C37-E2AC6D0DECAC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.SmartContract.Framework", "..\..\..\neo_code\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj", "{F3D45A77-75F5-4B91-A98C-1D89CA362E5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.SmartContract.Framework", "..\..\..\neo_code\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj", "{8A154C98-332D-4142-80CC-5F5C68B5F327}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{DDE83F8A-EA91-42FB-8C37-E2AC6D0DECAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDE83F8A-EA91-42FB-8C37-E2AC6D0DECAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDE83F8A-EA91-42FB-8C37-E2AC6D0DECAC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3D45A77-75F5-4B91-A98C-1D89CA362E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3D45A77-75F5-4B91-A98C-1D89CA362E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3D45A77-75F5-4B91-A98C-1D89CA362E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3D45A77-75F5-4B91-A98C-1D89CA362E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A154C98-332D-4142-80CC-5F5C68B5F327}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A154C98-332D-4142-80CC-5F5C68B5F327}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A154C98-332D-4142-80CC-5F5C68B5F327}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A154C98-332D-4142-80CC-5F5C68B5F327}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

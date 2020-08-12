@@ -1,35 +1,48 @@
 ﻿using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
+using Neo.SmartContract.Framework.Services.System;
 using System;
+using System.ComponentModel;
 using System.Numerics;
 
 namespace NeoContract
 {
-    [Features(ContractFeatures.HasStorage)]
+    [Features(ContractFeatures.HasStorage | ContractFeatures.Payable)]
     public class Contract1 : SmartContract
     {
-        private static readonly StorageMap Data = Storage.CurrentContext.CreateMap("data");
+        //[DisplayName("Test")]
+        //public static event Action<byte[]> OnTest;
 
-        public static void Put(string message)
-        {
-            Data.Put(message, Blockchain.GetHeight());
-        }
+        //[DisplayName("Test1")]
+        //public static event Action<string> OnTest1;
 
-        public static BigInteger Get(string msg)
-        {
-            return Data.Get(msg)?.ToBigInteger() ?? 0;
-        }
+        //public static bool Update(byte[] script, string manifest)
+        //{            
+        //    if (script.Length == 0 && manifest.Length == 0) return false;
+        //    // Check equals
+        //    var contract = Blockchain.GetContract(ExecutionEngine.ExecutingScriptHash);
+        //    if (script != null && script.Equals(contract.Script) && manifest == contract.Manifest)
+        //        return true;
 
-        public static void Put2(string message)
-        {
-            var Data2 = Storage.CurrentContext.CreateMap("data");
-            Data2.Put(message, Blockchain.GetHeight());
-        }
+        //    if (!contract.Script.Equals(script))
+        //    {
+        //        OnTest(script);
+        //        OnTest(contract.Script);
+        //    }
 
-        public static BigInteger Get2(string msg)
+        //    if (manifest != contract.Manifest)
+        //    {
+        //        OnTest1("1");
+        //    }
+
+        //    Contract.Update(script, manifest);
+        //    return true;
+        //}
+
+        private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
+        public static bool Verify()
         {
-            var Data2 = Storage.CurrentContext.CreateMap("data");
-            return Data2.Get(msg)?.ToBigInteger() ?? 0;
+            return Runtime.CheckWitness(Owner);
         }
     }
 }
