@@ -23,15 +23,14 @@ namespace NEP5
         public static ulong InitialSupply() => 20_000_000; 
 
         //fa 79 76 3b 86 76 7b 42 68 72 34 9f d2 fd bc cf 16 2e e2 20 合约中此处用小端序
-        private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
+        static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
 
         public static ulong TokensPerNEO() => 1;
 
         public static ulong TokensPerGAS() => 1;
 
-        public static byte[] NeoToken() => new byte[] { 0x89, 0x77, 0x20, 0xd8, 0xcd, 0x76, 0xf4, 0xf0, 0x0a, 0xbf, 0xa3, 0x7c, 0x0e, 0xdd, 0x88, 0x9c, 0x20, 0x8f, 0xde, 0x9b };
-
-        public static byte[] GasToken() => new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xa1, 0xd8, 0x96, 0xf1, 0x23, 0x8c };
+        static readonly byte[] NeoToken = "0xde5f57d430d3dece511cf975a8d37848cb9e0525".HexToBytes();
+        static readonly byte[] GasToken = "0x668e0c1f9d7b70a99dd9e06eadd4c784d641afbc".HexToBytes();
         #endregion
 
         #region Notifications
@@ -135,11 +134,11 @@ namespace NEP5
                 var notification = notifications[i];
 
                 //此处ScriptHash是tokenhash的小端格式
-                if (notification.ScriptHash == NeoToken())
+                if (notification.ScriptHash == NeoToken)
                 {
                     neo += GetTransactionAmount(notification.State);
                 }
-                else if (notification.ScriptHash == GasToken())
+                else if (notification.ScriptHash == GasToken)
                 {
                     gas += GetTransactionAmount(notification.State);
                 }

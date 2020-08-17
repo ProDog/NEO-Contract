@@ -13,16 +13,16 @@ namespace APITest
     [Features(ContractFeatures.HasStorage | ContractFeatures.Payable)]
     public partial class APITest : SmartContract
     {        
-        private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
-        public static bool Verify()
-        {
-            return Runtime.CheckWitness(Owner);
-        }
+        //private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
+        //public static bool Verify()
+        //{
+        //    return Runtime.CheckWitness(Owner);
+        //}
 
-        //public delegate void Notify(params object[] arg);
+        public delegate void Notify(params object[] arg);
 
-        //[DisplayName("event_name")]
-        //public static event Notify OnNotify;
+        [DisplayName("event_name")]
+        public static event Notify OnNotify;
 
 
 
@@ -126,42 +126,49 @@ namespace APITest
         //    return true;
         //}
 
-        //public static object Test2()
-        //{
-        //    MyObject myObject = new MyObject();
-        //    myObject.obj = "test";
-        //    myObject.callback = create();
-        //    myObject.bol = true;
-        //    myObject.it = 1223;
-        //    myObject.byteString = "testqqwasdas";
-        //    myObject.byteArray = new byte[] { 8, 12, 34, 53, 12 };
-        //    myObject.array = new string[] { "aa", "bb", "cc0" };
-        //    myObject.map = new Map<byte, byte>();                     
+        public static object Test2()
+        {
+            MyObject myObject = new MyObject();
+            //myObject.obj = "test";
+            //myObject.callback = create();
+            myObject.bol = true;
+            myObject.it = 1223;
+            myObject.byteString = "testqqwasdas";
+            myObject.byteArray = new byte[] { 8, 12, 34, 53, 12 };
+            myObject.array = new string[] { "aa", "bb", "cc0" };
+            myObject.map = new Map<byte, byte>();
 
-        //    Map<byte, byte> map1 = new Map<byte, byte>();
-        //    map1[2] = 12;
-        //    map1[0] = 24;
+            Map<byte, byte> map1 = new Map<byte, byte>();
+            map1[2] = 12;
+            map1[0] = 24;
 
-        //    myObject.map = map1;
-        //    myObject.iterator = Iterator<byte, byte>.Create(map1);
+            myObject.map = map1;
+            //myObject.iterator = Iterator<byte, byte>.Create(map1);
 
-        //    return myObject;
-        //}
+            OnNotify(myObject);
+
+            return myObject;
+        }
+
+        public static void ExceptionTest()
+        {
+            throw new Exception("this is a test exception!");
+        }
 
 
     }
 
     public class MyObject
     {
-        public object obj;
-        public object callback;
+        //public object obj;
+        //public object callback;
         public bool bol;
         public int it;
         public string byteString;
         public byte[] byteArray;
         public string[] array;
         public Map<byte,byte> map;
-        public Iterator<byte, byte> iterator;
-        public Pointer pointer;
+        //public Iterator<byte, byte> iterator;
+        //public Pointer pointer;
     }
 }

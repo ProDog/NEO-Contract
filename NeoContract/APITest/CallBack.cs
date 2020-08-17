@@ -10,10 +10,10 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        //public static object Test(object args)
-        //{
-        //    return 123;
-        //}
+        public static object Test(object args)
+        {
+            return 123;
+        }
 
         //public static object createFromMethod(byte[] hash, string method)
         //{
@@ -25,11 +25,11 @@ namespace APITest
         //    return Callback.CreateFromMethod(hash, "transfer").Invoke(new object[] { from, to, value });
         //}
 
-        //public static object create()
-        //{
-        //    var action = new Func<object, object>(Test);
-        //    return Callback.Create(action);
-        //}
+        public static object create()
+        {
+            var action = new Func<object, object>(Test);
+            return Callback.Create(action);
+        }
 
         //public static object createAndCall()
         //{
