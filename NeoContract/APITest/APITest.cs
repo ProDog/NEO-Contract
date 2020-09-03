@@ -77,23 +77,26 @@ namespace APITest
         //    return (a / b, a * b);
         //}
 
-        //// 1 or 0
-        //public static bool BoolTest()
-        //{            
-        //    return true;
-        //}
+        public static bool BoolTest()
+        {
+            byte[] a1 = new byte[] { 0x01, 0x02 };
+            byte[] a2 = new byte[] { 0x01, 0x02 };
 
-        //// 1 or 0
-        //public static bool BoolTest1()
-        //{            
-        //    return "aa" != "aa";
-        //}
+            return a1.ToBigInteger() == a2.ToBigInteger();
+        }
 
-        //// true or false
-        //public static bool BoolTest2()
-        //{           
-        //    return new byte[] { 0x12 } != null;
-        //}
+        public static bool BoolTest1()
+        {
+            byte[] a1 = new byte[] { 0x01, 0x02 };
+            byte[] a2 = new byte[] { 0x01, 0x02 };
+
+            return a1.ToByteString().Equals(a2.ToByteString());
+        }
+
+        public static object Test2(byte[] a)
+        {
+            return a;           
+        }
 
         //// true or false
         //public static bool BoolTest3()
