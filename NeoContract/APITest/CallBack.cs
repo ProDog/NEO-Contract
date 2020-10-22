@@ -1,4 +1,5 @@
-﻿using Neo.SmartContract.Framework;
+﻿using Neo;
+using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using Neo.SmartContract.Framework.Services.System;
 using System;
@@ -15,10 +16,10 @@ namespace APITest
             return 123;
         }
 
-        //public static object createFromMethod(byte[] hash, string method)
-        //{
-        //    return Callback.CreateFromMethod(hash, method);
-        //}
+        public static object createFromMethod(byte[] hash, string method)
+        {
+            return Callback.CreateFromMethod((UInt160)hash, method);
+        }
 
         //public static object callMethod(byte[] hash, byte[] from, byte[] to, BigInteger value)
         //{
@@ -38,7 +39,7 @@ namespace APITest
 
         //    return callback.Invoke(new object[] { null });
         //}
-
+        
         //public static object callSyscall(byte hash)
         //{
         //    return Callback.CreateFromSyscall(SyscallCallback.System_Blockchain_GetContract).Invoke(new object[] { hash});

@@ -1,4 +1,5 @@
-﻿using Neo.SmartContract.Framework;
+﻿using Neo;
+using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using Neo.SmartContract.Framework.Services.System;
 using System;
@@ -9,14 +10,12 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        ////scriptHash use little-endian
-        //public static bool AccountTest(byte[] scriptHash)
-        //{
-        //    var isStandard = Account.IsStandard(scriptHash);
+        //scriptHash use little-endian
+        public static bool AccountTest(byte[] scriptHash)
+        {
+            var isStandard = Account.IsStandard((UInt160)scriptHash);
 
-        //    return isStandard;
-
-        //    return true;
-        //}
+            return isStandard;
+        }
     }
 }

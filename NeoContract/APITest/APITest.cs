@@ -1,4 +1,5 @@
-﻿using Neo.SmartContract.Framework;
+﻿using Neo;
+using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using Neo.SmartContract.Framework.Services.System;
 using System;
@@ -13,6 +14,7 @@ namespace APITest
     [Features(ContractFeatures.HasStorage | ContractFeatures.Payable)]
     public partial class APITest : SmartContract
     {        
+        //这样转的是大端
         //private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
         //public static bool Verify()
         //{
@@ -29,7 +31,6 @@ namespace APITest
         //static byte[] bytes = "9bde8f209c88dd0e7ca3bf0af0f476cdd8207789".HexToBytes();
         //static byte[] bytes1 = Neo.SmartContract.Framework.Helper.HexToBytes("0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789");
         //static byte[] addressHash = Neo.SmartContract.Framework.Helper.ToScriptHash("NZ6A2ZLxKQY8hQxDFvuZkecBx8fj6MihS7");
-        //static byte[] addressHash1 = Neo.SmartContract.Framework.Helper.ToScriptHash("NSzwm3ZZQNt7puaij6aq7hQ8EBD8r66XgF");
         //static byte[] addressHash2 = Neo.SmartContract.Framework.Helper.ToScriptHash("NLJNmdMBm5LR3J2gErmJzN3PF9qwAzFzCf");
 
         //public static byte[] GasToken = new byte[] { 0x3b, 0x7d, 0x37, 0x11, 0xc6, 0xf0, 0xcc, 0xf9, 0xb1, 0xdc, 0xa9, 0x03, 0xd1, 0xbf, 0xa1, 0xd8, 0x96, 0xf1, 0x23, 0x8c };
@@ -49,6 +50,14 @@ namespace APITest
         //public static byte[] Test1()
         //{
         //    return NeoToken;
+        //}
+
+        //static UInt160 addressHash = Neo.SmartContract.Framework.Helper.ToScriptHash("NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y");
+        //public static object Test1()
+        //{
+        //    var a = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
+
+        //    return a;
         //}
 
         //public static bool NotifyTest()
@@ -93,11 +102,6 @@ namespace APITest
             return a1.ToByteString().Equals(a2.ToByteString());
         }
 
-        public static object Test2(byte[] a)
-        {
-            return a;           
-        }
-
         //// true or false
         //public static bool BoolTest3()
         //{            
@@ -129,29 +133,29 @@ namespace APITest
         //    return true;
         //}
 
-        public static object Test2()
-        {
-            MyObject myObject = new MyObject();
-            //myObject.obj = "test";
-            //myObject.callback = create();
-            myObject.bol = true;
-            myObject.it = 1223;
-            myObject.byteString = "testqqwasdas";
-            myObject.byteArray = new byte[] { 8, 12, 34, 53, 12 };
-            myObject.array = new string[] { "aa", "bb", "cc0" };
-            myObject.map = new Map<byte, byte>();
+        //public static object Test2()
+        //{
+        //    MyObject myObject = new MyObject();
+        //    //myObject.obj = "test";
+        //    //myObject.callback = create();
+        //    myObject.bol = true;
+        //    myObject.it = 1223;
+        //    myObject.byteString = "testqqwasdas";
+        //    myObject.byteArray = new byte[] { 8, 12, 34, 53, 12 };
+        //    myObject.array = new string[] { "aa", "bb", "cc0" };
+        //    myObject.map = new Map<byte, byte>();
 
-            Map<byte, byte> map1 = new Map<byte, byte>();
-            map1[2] = 12;
-            map1[0] = 24;
+        //    Map<byte, byte> map1 = new Map<byte, byte>();
+        //    map1[2] = 12;
+        //    map1[0] = 24;
 
-            myObject.map = map1;
-            //myObject.iterator = Iterator<byte, byte>.Create(map1);
+        //    myObject.map = map1;
+        //    //myObject.iterator = Iterator<byte, byte>.Create(map1);
 
-            OnNotify(myObject);
+        //    OnNotify(myObject);
 
-            return myObject;
-        }
+        //    return myObject;
+        //}
 
         public static void ExceptionTest()
         {

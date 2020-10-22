@@ -1,5 +1,7 @@
-﻿using Neo.SmartContract.Framework;
+﻿using Neo;
+using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
+using Neo.SmartContract.Framework.Services.System;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -9,86 +11,96 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        //public static object RuntimeTest()
-        //{
-        //    //var notifications = Runtime.GetNotifications();
-        //    //Runtime.Notify(notifications);
-        //    //Runtime.Notify((uint)notifications.Length);
+        public static object RuntimeTest()
+        {
+            var notifications = Runtime.GetNotifications();
 
-        //    try
-        //    {                                      
-        //        try
-        //        {
-        //            try
-        //            {
-        //                throw new Exception();
-        //            }
-        //            catch
-        //            {
-        //                Runtime.Notify("error ");
-        //            }
+            OnNotify(notifications);
+            OnNotify((uint)notifications.Length);
 
-        //            throw new Exception();
-        //        }
-        //        catch
-        //        {
-        //            Runtime.Notify(1);
 
-        //            try
-        //            {
-        //                throw new Exception();
-        //            }
-        //            catch
-        //            {
-        //                Runtime.Notify(2);
-        //            }
+            var notifications1 = Runtime.GetNotifications(ExecutionEngine.ExecutingScriptHash);
+            OnNotify(notifications1);
+            OnNotify((uint)notifications1.Length);
 
-        //            finally
-        //            {
-        //                Runtime.Notify(3);
-        //            }
-        //        }
+            var notifications2 = Runtime.GetNotifications((UInt160)contractHash);
+            OnNotify(notifications2);
+            OnNotify((uint)notifications2.Length);
 
-        //        finally
-        //        {
-        //            Runtime.Notify(4);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        Runtime.Notify(5);
+            try
+            {
+                try
+                {
+                    try
+                    {
+                        throw new Exception();
+                    }
+                    catch
+                    {
+                        OnNotify("error ");
+                    }
 
-        //        try
-        //        {
-        //            Runtime.Notify(6);
-        //            throw new Exception();
-        //        }
-        //        catch
-        //        {
-        //            Runtime.Notify(7);
-        //        }
+                    throw new Exception();
+                }
+                catch
+                {
+                    OnNotify(1);
 
-        //        finally
-        //        {
-        //            Runtime.Notify(8);
-        //        }
-        //    }
-        //    finally
-        //    {
-        //        Runtime.Notify(9);
-        //    }
+                    try
+                    {
+                        throw new Exception();
+                    }
+                    catch
+                    {
+                        OnNotify(2);
+                    }
 
-        //    return Runtime.GasLeft;
-        //}
+                    finally
+                    {
+                        OnNotify(3);
+                    }
+                }
 
-        //public static object GasLeftTest()
-        //{
-        //    Runtime.Notify((long)Runtime.Time);
-        //    Runtime.Notify(Runtime.InvocationCounter);
+                finally
+                {
+                    OnNotify(4);
+                }
+            }
+            catch
+            {
+                OnNotify(5);
 
-        //    Runtime.Notify(Runtime.GasLeft);
+                try
+                {
+                    OnNotify(6);
+                    throw new Exception();
+                }
+                catch
+                {
+                    OnNotify(7);
+                }
 
-        //    return Runtime.GasLeft;
-        //}
+                finally
+                {
+                    OnNotify(8);
+                }
+            }
+            finally
+            {
+                OnNotify(9);
+            }
+
+            return Runtime.GasLeft;
+        }
+
+        public static object GasLeftTest()
+        {
+            OnNotify((long)Runtime.Time);
+            OnNotify(Runtime.InvocationCounter);
+
+            OnNotify(Runtime.GasLeft);
+
+            return Runtime.GasLeft;
+        }
     }
 }
