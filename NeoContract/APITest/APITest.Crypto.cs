@@ -30,6 +30,7 @@ namespace APITest
         //    return true;
         //}
 
+        //[{"type":"Hash160","value":"0xe19de267a37a71734478f512b3e92c79fc3695fa"}] 
         public static object Hash160Test(byte[] msg)
         {
             OnNotify("aa", Crypto.RIPEMD160(msg));

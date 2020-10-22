@@ -12,7 +12,7 @@
 //        [DisplayName("transfer")]
 //        public static event Action<byte[], byte[], BigInteger> Transferred;//(byte[] from, byte[] to, BigInteger value)
 
-//        private static readonly byte[] superAdmin = "AcHXfiunb27Q4B9jpP1vdNzAdmXRCvKvNz".ToScriptHash();
+//        private static readonly byte[] superAdmin = "AGfMEihgzV5H5fbWekWmiv6DBjVPZhfp7H".ToScriptHash();
 
 //        private const ulong factor = 100000000;//精度
 //        private const ulong oneHundredMillion = 100000000 * 10;
@@ -26,8 +26,8 @@
 //                var callscript = ExecutionEngine.CallingScriptHash;
 //                var entryscript = ExecutionEngine.EntryScriptHash;
 
-//                if (method == "name") return "ABC";
-//                if (method == "symbol") return "ABC";
+//                if (method == "name") return "BTC";
+//                if (method == "symbol") return "BTC";
 //                if (method == "decimals") return 8;
 //                if (method == "supportedStandards") return new string[] { "NEP-5", "NEP-7", "NEP-10" };
 //                if (method == "totalSupply") return Storage.Get(Context(), "totalSupply").AsBigInteger();
@@ -57,7 +57,7 @@
 
 //                    BigInteger value = (BigInteger)args[2];
 
-//                    if (!(Runtime.CheckWitness(from) || from.Equals(callscript))) return false;                    
+//                    if (!(Runtime.CheckWitness(from) || from.Equals(callscript))) return false;
 
 //                    return Transfer(from, to, value);
 //                }
@@ -66,7 +66,7 @@
 //            return false;
 
 //        }
-        
+
 //        public static bool Transfer(byte[] from, byte[] to, BigInteger value)
 //        {
 //            if (value <= 0) return false;

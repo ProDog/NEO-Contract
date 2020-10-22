@@ -8,8 +8,4 @@
     <Exec Command="dotnet D:\Work\neo_code\neo-devpack-dotnet\src\Neo.Compiler.MSIL\bin\Debug\netcoreapp3.1\neon.dll -f &quot;$(TargetPath)&quot; -o" />
   </Target>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\neo_code\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj" />
-  </ItemGroup>
-
 </Project>
