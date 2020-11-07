@@ -1,5 +1,4 @@
 ﻿using Neo;
-using Neo.Cryptography.ECC;
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using System;
@@ -17,9 +16,9 @@ namespace APITest
         {
             //var scriptHash = new byte[] { 162, 210, 135, 131, 161, 45, 171, 207, 225, 70, 39, 213, 236, 229, 148, 229, 63, 247, 220, 163 };
 
-            var result = Contract.Call((UInt160)scriptHash, "transfer", new object[] { from, to, amount });
+            //var result = Contract.Call((UInt160)scriptHash, "transfer", new object[] { from, to, amount });
 
-            OnNotify(result);
+            //OnNotify(result);
 
             //Contract.CallEx(scriptHash, ContractParameterType.Any, "transfer", new object[] { from, to, amount }, Neo.SmartContract.CallFlags.All);
 
@@ -42,20 +41,20 @@ namespace APITest
         }
 
         //[{"type":"Hash160","value":"0x668e0c1f9d7b70a99dd9e06eadd4c784d641afbc"}] 
-        public static BigInteger ContractTest1(byte[] scriptHash)
-        {
-            var totalSupply = (BigInteger)Contract.Call((UInt160)scriptHash, "totalSupply", new object[] { });
-            OnNotify(totalSupply);
+        //public static BigInteger ContractTest1(byte[] scriptHash)
+        //{
+        //    //var totalSupply = (BigInteger)Contract.Call((UInt160)scriptHash, "totalSupply", new object[] { });
+        //    //OnNotify(totalSupply);
 
-            return totalSupply;
-        }
+        //    return totalSupply;
+        //}
 
         //[{"type":"PublicKey","value":"0222d8515184c7d62ffa99b829aeb4938c4704ecb0dd7e340e842e9df121826343"}] 
-        public static object ContractTest2(byte[] publicKey)
-        {
-            var account = Contract.CreateStandardAccount((ECPoint)publicKey);
-            OnNotify(account);
-            return Contract.CreateStandardAccount((ECPoint)publicKey);
-        }
+        //public static object ContractTest2(byte[] publicKey)
+        //{
+        //    var account = Contract.CreateStandardAccount((ECPoint)publicKey);
+        //    OnNotify(account);
+        //    return Contract.CreateStandardAccount((ECPoint)publicKey);
+        //}
     }
 }

@@ -16,21 +16,21 @@ namespace APITest
             return 123;
         }
 
-        public static object createFromMethod(byte[] hash, string method)
-        {
-            return Callback.CreateFromMethod((UInt160)hash, method);
-        }
+        //public static object createFromMethod(byte[] hash, string method)
+        //{
+        //    return Callback.CreateFromMethod(hash, method);
+        //}
 
         //public static object callMethod(byte[] hash, byte[] from, byte[] to, BigInteger value)
         //{
         //    return Callback.CreateFromMethod(hash, "transfer").Invoke(new object[] { from, to, value });
         //}
 
-        public static object create()
-        {
-            var action = new Func<object, object>(Test);
-            return Callback.Create(action);
-        }
+        //public static object create()
+        //{
+        //    var action = new Func<object, object>(Test);
+        //    return Callback.Create(action);
+        //}
 
         //public static object createAndCall()
         //{

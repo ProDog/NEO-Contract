@@ -13,9 +13,8 @@ namespace APITest
 {
     [Features(ContractFeatures.HasStorage | ContractFeatures.Payable)]
     public partial class APITest : SmartContract
-    {        
-        //这样转的是大端
-        //private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
+    {
+        private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
         //public static bool Verify()
         //{
         //    return Runtime.CheckWitness(Owner);
@@ -27,6 +26,20 @@ namespace APITest
         public static event Notify OnNotify;
 
 
+        public static void _deploy(bool update)
+        {
+            if (!update)
+            {
+                
+                Storage.Put(Storage.CurrentContext, "test", 11);
+                OnNotify("test", 1);
+            }
+        }
+
+        public static object getvalue()
+        {
+            return Storage.Get(Storage.CurrentContext, "test");
+        }
 
         //static byte[] bytes = "9bde8f209c88dd0e7ca3bf0af0f476cdd8207789".HexToBytes();
         //static byte[] bytes1 = Neo.SmartContract.Framework.Helper.HexToBytes("0x9bde8f209c88dd0e7ca3bf0af0f476cdd8207789");
