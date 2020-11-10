@@ -1,4 +1,5 @@
-﻿using Neo.SmartContract.Framework;
+﻿using Neo.Cryptography.ECC;
+using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using System;
 using System.Collections.Generic;
@@ -19,17 +20,17 @@ namespace APITest
         //    return true;
         //}
 
-        //public static bool MultiCryptoTest(byte[] message, byte[][] pubkey, byte[][] signature)
+        //public static bool MultiCryptoTest(byte[] message, ECPoint[] pubkey, byte[][] signature)
         //{
-        //    Crypto.ECDsa.Secp256k1.CheckMultiSig(null, (ECPoint)pubkey, signature);
-        //    Crypto.ECDsa.Secp256k1.CheckMultiSig(message, (ECPoint)pubkey, signature);
+        //    Crypto.ECDsa.Secp256k1.CheckMultiSig(null, pubkey, signature);
+        //    Crypto.ECDsa.Secp256k1.CheckMultiSig(message, pubkey, signature);
 
-        //    Crypto.ECDsa.Secp256r1.CheckMultiSig(null, (ECPoint)pubkey, signature);
-        //    Crypto.ECDsa.Secp256r1.CheckMultiSig(message, (ECPoint)pubkey, signature);
+        //    Crypto.ECDsa.Secp256r1.CheckMultiSig(null, pubkey, signature);
+        //    Crypto.ECDsa.Secp256r1.CheckMultiSig(message, pubkey, signature);
         //    return true;
         //}
 
-        //[{"type":"Hash160","value":"0xe19de267a37a71734478f512b3e92c79fc3695fa"}] 
+        ////[{"type":"Hash160","value":"0xe19de267a37a71734478f512b3e92c79fc3695fa"}] 
         //public static object Hash160Test(byte[] msg)
         //{
         //    OnNotify("aa", Crypto.RIPEMD160(msg));

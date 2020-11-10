@@ -11,11 +11,12 @@ namespace APITest
     public partial class APITest : SmartContract
     {
         //scriptHash use little-endian
-        //public static bool AccountTest(byte[] scriptHash)
-        //{
-        //    var isStandard = Account.IsStandard((UInt160)scriptHash);
+        //[{"type":"Hash160","value":"0x497e658ffced75d5cf96c49c69313cb8df6c6357"}] 
+        public static bool AccountTest(byte[] scriptHash)
+        {
+            var isStandard = Account.IsStandard((UInt160)scriptHash);
 
-        //    return isStandard;
-        //}
+            return isStandard;
+        }
     }
 }

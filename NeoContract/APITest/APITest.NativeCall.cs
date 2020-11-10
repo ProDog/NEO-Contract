@@ -1,4 +1,5 @@
 ﻿using Neo;
+using Neo.Cryptography.ECC;
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using System;
@@ -10,100 +11,98 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        ////[{"type":"Hash160","value":"0xf621168b1fce3a89c33a5f6bcf7e774b4657031c"}] 
-        //public static void GasCall(UInt160 account)
-        //{
-        //    OnNotify(account);
+        //[{"type":"Hash160","value":"0xf621168b1fce3a89c33a5f6bcf7e774b4657031c"}] 
+        public static void GasCall(UInt160 account)
+        {
+            OnNotify(account);
 
-        //    OnNotify(GAS.Name);
+            OnNotify(GAS.Name);
 
-        //    OnNotify(GAS.Symbol);
+            OnNotify(GAS.Symbol);
 
-        //    OnNotify(GAS.Decimals);
+            OnNotify(GAS.Decimals);
 
-        //    OnNotify(GAS.TotalSupply());
+            OnNotify(GAS.TotalSupply());
 
-        //    OnNotify(GAS.BalanceOf(account));
+            OnNotify(GAS.BalanceOf(account));
 
-        //    //OnNotify(GAS.Transfer((UInt160)account, Owner, 1000));
+            OnNotify(GAS.Transfer((UInt160)account, Owner, 1000));
 
-        //    OnNotify(Owner);
-        //}
+            OnNotify(Owner);
+        }
 
-        ////[{"type":"Hash160","value":"0xf621168b1fce3a89c33a5f6bcf7e774b4657031c"},{"type":"PublicKey","value":"0222d8515184c7d62ffa99b829aeb4938c4704ecb0dd7e340e842e9df121826343"}]
-        //public static void NeoCall(UInt160 account, ECPoint publicKey)
-        //{
-        //    OnNotify(NEO.Name);
+        //[{"type":"Hash160","value":"0xf621168b1fce3a89c33a5f6bcf7e774b4657031c"},{"type":"PublicKey","value":"0222d8515184c7d62ffa99b829aeb4938c4704ecb0dd7e340e842e9df121826343"}]
+        public static void NeoCall(UInt160 account, ECPoint publicKey)
+        {
+            OnNotify(NEO.Name);
 
-        //    OnNotify(NEO.Symbol);
+            OnNotify(NEO.Symbol);
 
-        //    OnNotify(NEO.Decimals);
+            OnNotify(NEO.Decimals);
 
-        //    OnNotify(NEO.TotalSupply());
+            OnNotify(NEO.TotalSupply());
 
-        //    OnNotify(NEO.BalanceOf(account));
+            OnNotify(NEO.BalanceOf(account));
 
-        //    OnNotify(NEO.UnclaimedGas(account, Blockchain.GetHeight()));
+            OnNotify(NEO.UnclaimedGas(account, Blockchain.GetHeight()));
 
-        //    OnNotify(NEO.GetCandidates());
+            OnNotify(NEO.GetCandidates());
 
-        //    //OnNotify(NEO.GetValidators());
+            OnNotify(NEO.GetCommittee());
 
-        //    OnNotify(NEO.GetCommittee());
+            OnNotify(NEO.GetNextBlockValidators());
 
-        //    OnNotify(NEO.GetNextBlockValidators());
+            OnNotify(NEO.RegisterCandidate(publicKey));
 
-        //    OnNotify(NEO.RegisterCandidate(publicKey));
+            OnNotify(NEO.UnregisterCandidate(publicKey));
 
-        //    OnNotify(NEO.UnregisterCandidate(publicKey));
+            OnNotify(NEO.Vote(account, publicKey));
 
-        //    OnNotify(NEO.Vote(account, publicKey));
+            OnNotify(NEO.Transfer((UInt160)account, Owner, 1000));
 
-        //    //OnNotify(NEO.Transfer((UInt160)account, Owner, 1000));
+            OnNotify(NEO.GetGasPerBlock());
 
-        //    //OnNotify(NEO.GetGasPerBlock());
+            OnNotify(NEO.SetGasPerBlock(300000000));
 
-        //    //OnNotify(NEO.SetGasPerBlock(300000000));
+            OnNotify(NEO.GetGasPerBlock());
+        }
 
-        //    //OnNotify(NEO.GetGasPerBlock());
-        //}
+        public static void PolicyCall()
+        {
+            OnNotify(Policy.Name());
 
-        //public static void PolicyCall()
-        //{
-        //    OnNotify(Policy.Name());
+            OnNotify(Policy.GetMaxTransactionsPerBlock());
 
-        //    OnNotify(Policy.GetMaxTransactionsPerBlock());
+            OnNotify(Policy.GetMaxBlockSize());
 
-        //    OnNotify(Policy.GetMaxBlockSize());
+            OnNotify(Policy.GetMaxBlockSystemFee());
 
-        //    OnNotify(Policy.GetMaxBlockSystemFee());
+            OnNotify(Policy.GetFeePerByte());
 
-        //    OnNotify(Policy.GetFeePerByte());
+            OnNotify(Policy.Hash);
 
-        //    OnNotify(Policy.Hash);
+            OnNotify(Policy.IsBlocked(Owner));
 
-        //    //OnNotify(Policy.IsBlocked(Owner));
+            OnNotify(Policy.BlockAccount((UInt160)Owner));
 
-        //    OnNotify(Policy.BlockAccount((UInt160)Owner));
+            OnNotify(Policy.UnblockAccount((UInt160)Owner));
+        }
 
-        //    OnNotify(Policy.UnblockAccount((UInt160)Owner));
-        //}
+        public static void DesignationCall()
+        {
+            OnNotify(Designation.Name);
 
-        //public static void DesignationCall()
-        //{
-        //    OnNotify(Designation.Name);
+            OnNotify(Designation.Hash);
 
-        //    OnNotify(Designation.Hash);
+            OnNotify(Designation.GetDesignatedByRole((DesignationRole)8));
+        }
 
-        //    OnNotify(Designation.GetDesignatedByRole((DesignationRole)8));
-        //}
+        public static void OracleCall()
+        {
+            OnNotify(Oracle.Name);
 
-        //public static void OracleCall()
-        //{
-        //    OnNotify(Oracle.Name);
+            OnNotify(Oracle.Hash);
 
-        //    OnNotify(Oracle.Hash);
-
-        //}
+        }
     }
 }

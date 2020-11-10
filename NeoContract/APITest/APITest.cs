@@ -14,7 +14,7 @@ namespace APITest
     [Features(ContractFeatures.HasStorage | ContractFeatures.Payable)]
     public partial class APITest : SmartContract
     {
-        private static byte[] Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
+        private static UInt160 Owner = "NNU67Fvdy3LEQTM374EJ9iMbCRxVExgM8Y".ToScriptHash();
         //public static bool Verify()
         //{
         //    return Runtime.CheckWitness(Owner);
@@ -29,8 +29,7 @@ namespace APITest
         public static void _deploy(bool update)
         {
             if (!update)
-            {
-                
+            {                
                 Storage.Put(Storage.CurrentContext, "test", 11);
                 OnNotify("test", 1);
             }

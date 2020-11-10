@@ -11,17 +11,17 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        public static object Test(object args)
-        {
-            return 123;
-        }
+        //public static object Test(object args)
+        //{
+        //    return 123;
+        //}
 
-        //public static object createFromMethod(byte[] hash, string method)
+        //public static object createFromMethod(UInt160 hash, string method)
         //{
         //    return Callback.CreateFromMethod(hash, method);
         //}
 
-        //public static object callMethod(byte[] hash, byte[] from, byte[] to, BigInteger value)
+        //public static object callMethod(UInt160 hash, byte[] from, byte[] to, BigInteger value)
         //{
         //    return Callback.CreateFromMethod(hash, "transfer").Invoke(new object[] { from, to, value });
         //}
@@ -39,10 +39,10 @@ namespace APITest
 
         //    return callback.Invoke(new object[] { null });
         //}
-        
+
         //public static object callSyscall(byte hash)
         //{
-        //    return Callback.CreateFromSyscall(SyscallCallback.System_Blockchain_GetContract).Invoke(new object[] { hash});
+        //    return Callback.CreateFromSyscall(SyscallCallback.System_Blockchain_GetContract).Invoke(new object[] { hash });
         //}
 
         //public static object createAndCallFromSyscall(uint method)

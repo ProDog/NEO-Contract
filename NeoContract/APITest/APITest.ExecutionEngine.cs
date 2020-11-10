@@ -6,22 +6,22 @@ namespace APITest
 {
     public partial class APITest : SmartContract
     {
-        //public static bool ExecutionEngineTest()
-        //{
-        //    Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
-        //    Notify("aa", tx.Hash, tx.Sender, tx.SystemFee, tx.NetworkFee);
+        public static bool ExecutionEngineTest()
+        {
+            //Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
+            //OnNotify("aa", tx.Hash, tx.Sender, tx.SystemFee, tx.NetworkFee);
 
-        //    //little-endian
-        //    var executingScriptHash = ExecutionEngine.ExecutingScriptHash;
-        //    Notify("aa", executingScriptHash);
+            //little-endian
+            var executingScriptHash = ExecutionEngine.ExecutingScriptHash;
+            OnNotify("aa", executingScriptHash);
 
-        //    var callingScriptHash = ExecutionEngine.CallingScriptHash;
-        //    Notify("aa", callingScriptHash);
+            var callingScriptHash = ExecutionEngine.CallingScriptHash;
+            OnNotify("aa", callingScriptHash);
 
-        //    var entryScriptHash = ExecutionEngine.EntryScriptHash;
-        //    Notify("aa", entryScriptHash);
+            var entryScriptHash = ExecutionEngine.EntryScriptHash;
+            OnNotify("aa", entryScriptHash);
 
-        //    return true;
-        //}
+            return true;
+        }
     }
 }
