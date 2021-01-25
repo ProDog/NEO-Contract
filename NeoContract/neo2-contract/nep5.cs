@@ -1,95 +1,230 @@
-﻿//using Neo.SmartContract.Framework;
-//using Neo.SmartContract.Framework.Services.Neo;
-//using Neo.SmartContract.Framework.Services.System;
-//using System;
-//using System.ComponentModel;
-//using System.Numerics;
+﻿using System;
+using System.ComponentModel;
+using System.Numerics;
+using Neo.SmartContract.Framework;
+using Neo.SmartContract.Framework.Services.Neo;
+using Neo.SmartContract.Framework.Services.System;
 
-//namespace nep5
-//{
-//    public class nep5 : SmartContract
-//    {
-//        [DisplayName("transfer")]
-//        public static event Action<byte[], byte[], BigInteger> Transferred;//(byte[] from, byte[] to, BigInteger value)
+namespace neo_wrapper
+{
+    public class NeoWrapper : SmartContract
+    {
+        // keys to map values
+        private static readonly byte[] OwnerKey = new byte[] { 0x01, 0x01 };
+        private static readonly byte[] FeeCollectorKey = new byte[] { 0x01, 0x02 };
+        private static readonly byte[] NeoLockProxyKey = new byte[] { 0x01, 0x03 };
+        private static readonly byte[] PausedKey = new byte[] { 0x01, 0x04 };
 
-//        private static readonly byte[] superAdmin = "AGfMEihgzV5H5fbWekWmiv6DBjVPZhfp7H".ToScriptHash();
+        // default setting
+        static readonly byte[] DefaultOwner = "Aa1WqKgXiwWrCKtUd3ib2N6rAhKMJ8j9jZ".ToScriptHash();
+        static readonly BigInteger NeoChainId = 5;
 
-//        private const ulong factor = 100000000;//精度
-//        private const ulong oneHundredMillion = 100000000 * 10;
-//        private const ulong totalCoin = 1 * oneHundredMillion * factor;//总量
+        // events
+        // OwnershipTransferred(oldOwner, newOwner)
+        public static event Action<byte[], byte[]> OwnershipTransferred;
+        // Paused(owner)
+        public static event Action<byte[]> Paused;
+        // Unpaused(owner)
+        public static event Action<byte[]> Unpaused;
+        // PolyWrapperLock(fromAsset, fromAddress, toChainId, toAddress, netAmount, fee, id)
+        public static event Action<byte[], byte[], BigInteger, byte[], BigInteger, BigInteger, BigInteger> PolyWrapperLock;
+        // SpeedUp(fromAsset, txHash, fromAddress, fee)
+        public static event Action<byte[], byte[], byte[], BigInteger> PolyWrapperSpeedUp;
 
-//        public static object Main(string method, object[] args)
-//        {
-//            var magicstr = "nep-test";
-//            if (Runtime.Trigger == TriggerType.Application)
-//            {
-//                var callscript = ExecutionEngine.CallingScriptHash;
-//                var entryscript = ExecutionEngine.EntryScriptHash;
 
-//                if (method == "name") return "BTC";
-//                if (method == "symbol") return "BTC";
-//                if (method == "decimals") return 8;
-//                if (method == "supportedStandards") return new string[] { "NEP-5", "NEP-7", "NEP-10" };
-//                if (method == "totalSupply") return Storage.Get(Context(), "totalSupply").AsBigInteger();
-//                if (method == "balanceOf") return Storage.Get(Context(), AddressKey((byte[])args[0])).AsBigInteger();
+        public static object Main(string method, object[] args)
+        {
+            if (Runtime.Trigger == TriggerType.Verification)
+            {
+                return Runtime.CheckWitness(Owner());
+            }
+            else if (Runtime.Trigger == TriggerType.Application)
+            {
+                // authorized function
+                if (method == "transferOwnership")
+                {
+                    byte[] newOwner = (byte[])args[0];
+                    return TransferOwnership(newOwner);
+                }
+                if (method == "owner") return Owner();
+                if (method == "setFeeCollector")
+                {
+                    byte[] feeCollector = (byte[])args[0];
+                    return SetFeeCollector(feeCollector);
+                }
+                if (method == "feeCollector") return FeeCollector();
+                if (method == "setLockProxy")
+                {
+                    byte[] lockProxy = (byte[])args[0];
+                    return SetLockProxy(lockProxy);
+                }
+                if (method == "lockProxy") return LockProxy();
+                if (method == "extractFee")
+                {
+                    byte[] token = (byte[])args[0];
+                    return ExtractFee(token);
+                }
+                if (method == "pause") return Pause();
+                if (method == "unpause") return Unpause();
+                if (method == "paused") return paused();
 
-//                if (method == "deploy")
-//                {
-//                    if (!Runtime.CheckWitness(superAdmin)) return false;
+                // business logic
+                if (method == "lock")
+                {
+                    byte[] fromAsset = (byte[])args[0];
+                    byte[] fromAddress = (byte[])args[1];
+                    BigInteger toChainId = (BigInteger)args[2];
+                    byte[] toAddress = (byte[])args[3];
+                    BigInteger amount = (BigInteger)args[4];
+                    BigInteger fee = (BigInteger)args[5];
+                    BigInteger id = (BigInteger)args[6];
+                    return Lock(fromAsset, fromAddress, toChainId, toAddress, amount, fee, id);
+                }
+                if (method == "speedUp")
+                {
+                    byte[] fromAsset = (byte[])args[0];
+                    byte[] fromAddress = (byte[])args[1];
+                    byte[] txHash = (byte[])args[2];
+                    BigInteger fee = (BigInteger)args[3];
+                    return SpeedUp(fromAsset, fromAddress, txHash, fee);
+                }
 
-//                    byte[] total_supply = Storage.Get(Context(), "totalSupply");
-//                    if (total_supply.Length != 0) return false;
 
-//                    var keySuperAdmin = AddressKey(superAdmin);
-//                    Storage.Put(Context(), keySuperAdmin, totalCoin);
-//                    Storage.Put(Context(), "totalSupply", totalCoin);
+            }
+            return false;
+        }
 
-//                    //notify
-//                    Transferred(null, superAdmin, totalCoin);
-//                }
+        [DisplayName("transferOwnership")]
+        public static bool TransferOwnership(byte[] newOwner)
+        {
+            byte[] oldOwner = Owner();
+            _assert(Runtime.CheckWitness(oldOwner), "!owner");
+            _assert(newOwner.Length == 20, "len != 20");
+            Storage.Put(OwnerKey, newOwner);
+            OwnershipTransferred(oldOwner, newOwner);
+            return true;
+        }
 
-//                if (method == "transfer")
-//                {
-//                    if (args.Length != 3) return false;
-//                    byte[] from = (byte[])args[0];
-//                    byte[] to = (byte[])args[1];
-//                    if (from.Length != 20 || to.Length != 20) return false;
+        [DisplayName("owner")]
+        public static byte[] Owner()
+        {
+            var owner = Storage.Get(OwnerKey);
+            return owner.Length == 20 ? owner : DefaultOwner;
+        }
 
-//                    BigInteger value = (BigInteger)args[2];
+        [DisplayName("setFeeCollector")]
+        public static bool SetFeeCollector(byte[] collector)
+        {
+            _assert(Runtime.CheckWitness(Owner()), "!owner");
+            _assert(collector.Length == 20, "len != 20");
+            Storage.Put(FeeCollectorKey, collector);
+            return true;
+        }
 
-//                    if (!(Runtime.CheckWitness(from) || from.Equals(callscript))) return false;
+        [DisplayName("feeCollector")]
+        public static byte[] FeeCollector()
+        {
+            return Storage.Get(FeeCollectorKey);
+        }
 
-//                    return Transfer(from, to, value);
-//                }
-//            }
+        [DisplayName("setLockProxy")]
+        public static bool SetLockProxy(byte[] lockProxy)
+        {
+            _assert(Runtime.CheckWitness(Owner()), "!owner");
+            _assert(lockProxy.Length == 20, "len != 20");
+            Storage.Put(NeoLockProxyKey, lockProxy);
+            return true;
+        }
+        [DisplayName("lockProxy")]
+        public static byte[] LockProxy()
+        {
+            return Storage.Get(NeoLockProxyKey);
+        }
 
-//            return false;
+        [DisplayName("extractFee")]
+        public static bool ExtractFee(byte[] token)
+        {
+            _assert(Runtime.CheckWitness(FeeCollector()), "!feeCollector");
+            byte[] self = ExecutionEngine.ExecutingScriptHash;
+            BigInteger fee = ((Func<string, object[], BigInteger>)token.ToDelegate())("balanceOf", new object[] { self });
+            if (fee > 0)
+            {
+                byte[] feeCollector = FeeCollector();
+                bool result = ((Func<string, object[], bool>)token.ToDelegate())("transfer", new object[] { self, feeCollector, fee });
+                _assert(result, "trasnfer fail");
+            }
+            return true;
+        }
 
-//        }
+        [DisplayName("lock")]
+        public static bool Lock(byte[] fromAsset, byte[] fromAddress, BigInteger toChainId, byte[] toAddress, BigInteger amount, BigInteger fee, BigInteger id)
+        {
+            _assert(Runtime.CheckWitness(fromAddress), "!fromAddress");
+            _assert(toChainId != NeoChainId && toChainId != 0, "!toChainId");
+            _assert(amount > fee, "amount less than fee");
+            _assert(!paused(), "paused");
+            _pull(fromAsset, fromAddress, amount);
+            _push(fromAsset, ExecutionEngine.ExecutingScriptHash, toChainId, toAddress, amount - fee);
+            PolyWrapperLock(fromAsset, fromAddress, toChainId, toAddress, amount - fee, fee, id);
+            return true;
+        }
 
-//        public static bool Transfer(byte[] from, byte[] to, BigInteger value)
-//        {
-//            if (value <= 0) return false;
-//            if (from == to) return true;
+        [DisplayName("speedUp")]
+        public static bool SpeedUp(byte[] fromAsset, byte[] fromAddress, byte[] txHash, BigInteger fee)
+        {
+            _assert(Runtime.CheckWitness(fromAddress), "!fromAddress");
+            _assert(!paused(), "paused");
+            _pull(fromAsset, fromAddress, fee);
+            PolyWrapperSpeedUp(fromAsset, txHash, fromAddress, fee);
+            return true;
+        }
 
-//            var keyFrom = AddressKey(from);
-//            BigInteger from_value = Storage.Get(Context(), keyFrom).AsBigInteger();
-//            if (from_value < value) return false;
-//            if (from_value == value)
-//                Storage.Delete(Context(), keyFrom);
-//            else
-//                Storage.Put(Context(), keyFrom, from_value - value);
+        private static bool _pull(byte[] fromAsset, byte[] fromAddress, BigInteger amount)
+        {
+            byte[] self = ExecutionEngine.ExecutingScriptHash;
+            bool result = ((Func<string, object[], bool>)fromAsset.ToDelegate())("transfer", new object[] { fromAddress, self, amount });
+            _assert(result, "_pull fail");
+            return true;
+        }
+        private static bool _push(byte[] fromAsset, byte[] fromAddress, BigInteger toChainId, byte[] toAddress, BigInteger amount)
+        {
+            byte[] lockProxy = LockProxy();
+            bool result = ((Func<string, object[], bool>)lockProxy.ToDelegate())("lock", new object[] { fromAsset, fromAddress, toChainId, toAddress, amount });
+            _assert(result, "lock fail");
+            return true;
+        }
 
-//            var keyTo = AddressKey(to);
-//            BigInteger to_value = Storage.Get(Context(), keyTo).AsBigInteger();
-//            Storage.Put(Context(), keyTo, to_value + value);
+        [DisplayName("pause")]
+        public static bool Pause()
+        {
+            _assert(Runtime.CheckWitness(Owner()), "!owner");
+            Storage.Put(PausedKey, new byte[] { 0x01 });
+            Paused(Owner());
+            return true;
+        }
+        [DisplayName("unpause")]
+        public static bool Unpause()
+        {
+            _assert(Runtime.CheckWitness(Owner()), "!owner");
+            Storage.Delete(PausedKey);
+            Unpaused(Owner());
+            return true;
+        }
+        [DisplayName("paused")]
+        public static bool paused()
+        {
+            byte[] paused = Storage.Get(PausedKey);
+            return paused.Length == 1;
+        }
+        private static void _assert(bool condition, string message)
+        {
+            if (!condition)
+            {
+                Runtime.Notify("Fault:" + message);
+                throw new Exception(message);
+            }
+        }
 
-//            Transferred(from, to, value);
-//            return true;
-//        }
 
-//        private static StorageContext Context() => Storage.CurrentContext;
-
-//        private static byte[] AddressKey(byte[] address) => new byte[] { 0x11 }.Concat(address);
-//    }
-//}
+    }
+}
